@@ -1,5 +1,6 @@
 package ru.stqa.yuri.addressbook;
 
+import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -35,20 +36,21 @@ public class yuriGroupTests {
     public void test_group_Tests() {
         openGroupPage();
         createNewGroup();
-        fillGroupForm("Yuri_test_group", "Header_group", "Yuri_group");
+        fillGroupForm(new GroupData("Yuri_test_group", "Header_group", "Yuri_group"));
         openGroupPage();
     }
 
-    private void fillGroupForm(String nameGroup, String headerGroup, String nameFooter) {
+
+    private void fillGroupForm(GroupData groupData) {
         wd.findElement(By.name("group_name")).click();
         wd.findElement(By.name("group_name")).clear();
-        wd.findElement(By.name("group_name")).sendKeys(nameGroup);
+        wd.findElement(By.name("group_name")).sendKeys(groupData.getNameGroup());
         wd.findElement(By.name("group_header")).click();
         wd.findElement(By.name("group_header")).clear();
-        wd.findElement(By.name("group_header")).sendKeys(headerGroup);
+        wd.findElement(By.name("group_header")).sendKeys(groupData.getHeaderGroup());
         wd.findElement(By.name("group_footer")).click();
         wd.findElement(By.name("group_footer")).clear();
-        wd.findElement(By.name("group_footer")).sendKeys(nameFooter);
+        wd.findElement(By.name("group_footer")).sendKeys(groupData.getNameFooter());
         wd.findElement(By.name("submit")).click();
     }
 
@@ -60,10 +62,13 @@ public class yuriGroupTests {
         wd.findElement(By.linkText("groups")).click();
     }
 
+
+
     @AfterMethod
     public void tearDown() {
         wd.quit();
     }
+
 
     public static boolean isAlertPresent(FirefoxDriver wd) {
         try {

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Addressbook_web_tests/Addressbook_web_tests.iml" filepath="$PROJECT_DIR$/Addressbook_web_tests/Addressbook_web_tests.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Addressbook_web_tests_1/Addressbook_web_tests_1.iml" filepath="$PROJECT_DIR$/Addressbook_web_tests_1/Addressbook_web_tests_1.iml" />
       <module fileurl="file://$PROJECT_DIR$/My_sandbox/My_sandbox.iml" filepath="$PROJECT_DIR$/My_sandbox/My_sandbox.iml" />
     </modules>
   </component>

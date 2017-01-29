@@ -1,4 +1,4 @@
-package ru.stqa.yuri.addressbook1;
+package ru.stqa.yuri.addressbook1.model;
 
 /**
  * Created by bilovyur on 25.01.2017.

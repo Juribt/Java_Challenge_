@@ -1,17 +1,17 @@
-package ru.stqa.yuri.addressbook1;
+package ru.stqa.yuri.addressbook1.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import ru.stqa.yuri.addressbook1.model.GroupData1;
+import ru.stqa.yuri.addressbook1.model.NewContactData1;
 
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by bilovyur on 25.01.2017.
+ * Created by bilovyur on 29.01.2017.
  */
-public class TestBase {
+public class ApplicationManager {
     FirefoxDriver wd;
 
     public static boolean isAlertPresent(FirefoxDriver wd) {
@@ -23,19 +23,18 @@ public class TestBase {
         }
     }
 
-    @BeforeMethod
-    public void setUp() throws Exception {
+    public void init() {
         wd = new FirefoxDriver();
         wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         wd.get("http://localhost:8081/addressbook/group.php");
         login("admin", "secret"); //залогиниться в приложение
     }
 
-    protected void checkNewContact() { //посмотреть что контакт создался
+    public void checkNewContact() { //посмотреть что контакт создался
         wd.findElement(By.linkText("home")).click();
     }
 
-    protected void fillNewContactForm(NewContactData1 newContactData) { //заполнение формы нового контакта
+    public void fillNewContactForm(NewContactData1 newContactData) { //заполнение формы нового контакта
         wd.findElement(By.name("lastname")).click();
         wd.findElement(By.name("lastname")).clear();
         wd.findElement(By.name("lastname")).sendKeys(newContactData.getLast_name());
@@ -66,19 +65,19 @@ public class TestBase {
         wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
     }
 
-    protected void createNewContact() {
+    public void createNewContact() {
         wd.findElement(By.linkText("add new")).click();
     }
 
-    protected void openGroupPage() {
+    public void openGroupPage() {
         wd.findElement(By.linkText("groups")).click();
     } //открыть группу
 
-    protected void createNewGroup() {
+    public void createNewGroup() {
         wd.findElement(By.name("new")).click();
     }//создать новую группу
 
-    protected void fillGroupForm(GroupData1 groupData) {
+    public void fillGroupForm(GroupData1 groupData) {
         wd.findElement(By.name("group_name")).click();
         wd.findElement(By.name("group_name")).clear();
         wd.findElement(By.name("group_name")).sendKeys(groupData.getNameGroup());
@@ -91,15 +90,15 @@ public class TestBase {
         wd.findElement(By.name("submit")).click();
     }
 
-    protected void deleteSelectedGroups() {
+    public void deleteSelectedGroups() {
         wd.findElement(By.name("delete")).click();
     }
 
-    protected void selectGroup() {
+    public void selectGroup() {
         wd.findElement(By.name("selected[]")).click();
     }
 
-    private void login(String username, String password) {
+    public void login(String username, String password) {
         wd.findElement(By.name("user")).click();
         wd.findElement(By.name("user")).clear();
         wd.findElement(By.name("user")).sendKeys(username);
@@ -110,8 +109,7 @@ public class TestBase {
         wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
     }
 
-    @AfterMethod
-    public void tearDown() {
+    public void stop() {
         wd.quit();
     }
 }

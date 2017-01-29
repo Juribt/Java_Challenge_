@@ -1,4 +1,4 @@
-package ru.stqa.yuri.addressbook1;
+package ru.stqa.yuri.addressbook1.tests;
 
 import org.testng.annotations.Test;
 //тест удаление группы
@@ -6,10 +6,10 @@ public class yuriDeleteGroupTest1 extends TestBase {
 
     @Test
     public void yuriDeletionGroupTest1() {
-        openGroupPage();
-        selectGroup();
-        deleteSelectedGroups();
-        openGroupPage();
+        app.openGroupPage();
+        app.selectGroup();
+        app.deleteSelectedGroups();
+        app.openGroupPage();
     }
 
 

@@ -6,10 +6,10 @@ public class yuriDeleteGroupTest1 extends TestBase {
 
     @Test
     public void yuriDeletionGroupTest1() {
-        app.openGroupPage();
-        app.selectGroup();
-        app.deleteSelectedGroups();
-        app.openGroupPage();
+        app.getNavigationHelper().openGroupPage();
+        app.getGroupHelper().selectGroup();
+        app.getGroupHelper().deleteSelectedGroups();
+        app.getNavigationHelper().openGroupPage();
     }
 
 

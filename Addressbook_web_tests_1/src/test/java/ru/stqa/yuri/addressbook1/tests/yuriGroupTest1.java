@@ -16,6 +16,7 @@ public class yuriGroupTest1 extends TestBase {
             app.getNavigationHelper().openGroupPage();
             app.getGroupHelper().createNewGroup();
             app.getGroupHelper().fillGroupForm(new GroupData1("Yuri1_test_group", "Header_group", "Yuri_group"));
+            app.getGroupHelper().submitGroupCreation();
             app.getNavigationHelper().openGroupPage(); //зайти на страницу Группы
 
         }

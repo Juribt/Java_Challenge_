@@ -21,10 +21,9 @@ public class GroupHelper extends HelperBase {
         type(By.name("group_name"), groupData.getNameGroup());
         type(By.name("group_header"), groupData.getHeaderGroup());
         type(By.name("group_footer"), groupData.getNameFooter());
-        submitGroupCreation();
-    }
+          }
 
-    private void submitGroupCreation() {
+    public void submitGroupCreation() {
         click(By.name("submit"));
     }
 
@@ -35,4 +34,12 @@ public class GroupHelper extends HelperBase {
     public void selectGroup() {
         click(By.name("selected[]"));
     }
+
+    public void initGroupModification() {
+        click(By.name("edit"));
+    }
+
+    public void submitGroupModification() {
+              click(By.name("update"));
+          }
 }

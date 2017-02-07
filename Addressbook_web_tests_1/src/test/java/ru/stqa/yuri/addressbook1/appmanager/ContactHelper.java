@@ -1,6 +1,7 @@
 package ru.stqa.yuri.addressbook1.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import ru.stqa.yuri.addressbook1.model.NewContactData1;
 
@@ -10,7 +11,7 @@ import ru.stqa.yuri.addressbook1.model.NewContactData1;
 public class ContactHelper extends HelperBase {
 
 
-    public ContactHelper(FirefoxDriver wd) {
+    public ContactHelper(WebDriver wd) {
         super(wd);
     }
 

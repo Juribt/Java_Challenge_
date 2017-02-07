@@ -1,5 +1,6 @@
 package ru.stqa.yuri.addressbook1.tests;
 
+import org.openqa.selenium.remote.BrowserType;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import ru.stqa.yuri.addressbook1.appmanager.ApplicationManager;
@@ -9,7 +10,7 @@ import ru.stqa.yuri.addressbook1.appmanager.ApplicationManager;
  */
 public class TestBase {
 
-    public final ApplicationManager app = new ApplicationManager();
+    public final ApplicationManager app = new ApplicationManager(BrowserType.IE);
 
     @BeforeMethod
     public void setUp() throws Exception {

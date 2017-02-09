@@ -14,7 +14,7 @@ public class GroupModificationTests extends TestBase {
      app.getNavigationHelper().openGroupPage();
      app.getGroupHelper().selectGroup();
      app.getGroupHelper().initGroupModification();
-     app.getGroupHelper().fillGroupForm(new GroupData1("Yuri2_test_group", "Header1_group", "Yuri3_group"));
+     app.getGroupHelper().fillGroupForm(new GroupData1("Yuri1_test_group", "Header1_group", "Yuri3_group"));
      app.getGroupHelper().submitGroupModification();
      app.getNavigationHelper().openGroupPage();
  }

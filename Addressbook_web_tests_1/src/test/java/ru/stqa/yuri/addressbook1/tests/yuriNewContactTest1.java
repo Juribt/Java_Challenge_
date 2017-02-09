@@ -15,9 +15,9 @@ public class yuriNewContactTest1 extends TestBase {
     public void test_newcontact_Tests() {
         app.getContactHelper().createNewContact();
 
-        app.getContactHelper().fillNewContactForm(new NewContactData1("Testovich", "Test", "Testyi", "Testik", "Test_High_Technologies", "89526656583", "john_swift@yahoo.com", "England, Solsbery, Flint str, h 7, fl. 8", "6402780"));
+        app.getContactHelper().fillNewContactForm(new NewContactData1("Testovich", "Test", "Testyi", "Testik", "Test_High_Technologies", "89526656583", "john_swift@yahoo.com", "England, Solsbery, Flint str, h 7, fl. 8", "6402780","Yuri1_test_group"), true);
         app.getContactHelper().submitNewContact();
-        app.getContactHelper().checkNewContact();
+        app.getNavigationHelper().checkNewContact();
     }
 
 

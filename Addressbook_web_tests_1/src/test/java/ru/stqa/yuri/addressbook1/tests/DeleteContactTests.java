@@ -11,7 +11,7 @@ public class DeleteContactTests extends TestBase {
     @Test
     public void testContactDeletion ()
     {
-        app.getContactHelper().checkNewContact(); //открыть страницу контактов
+        app.getNavigationHelper().checkNewContact(); //открыть страницу контактов
         app.getContactHelper().changeContact(); //открыть окно на изменение
         app.getContactHelper().deleteContact(); //удаление контакта
     }

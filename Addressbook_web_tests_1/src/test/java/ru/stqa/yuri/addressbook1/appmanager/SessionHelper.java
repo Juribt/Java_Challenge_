@@ -2,7 +2,6 @@ package ru.stqa.yuri.addressbook1.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
  * Created by bilovyur on 31.01.2017.

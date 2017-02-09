@@ -2,7 +2,8 @@ package ru.stqa.yuri.addressbook1.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import ru.stqa.yuri.addressbook1.model.NewContactData1;
 
 /**
@@ -15,11 +16,8 @@ public class ContactHelper extends HelperBase {
         super(wd);
     }
 
-    public void checkNewContact() { //посмотреть что контакт создался
-        click(By.linkText("home"));
-    }
 
-    public void fillNewContactForm(NewContactData1 newContactData) { //заполнение формы нового контакта
+    public void fillNewContactForm(NewContactData1 newContactData, boolean creation) { //заполнение формы нового контакта
         type(By.name("lastname"),newContactData.getLast_name());
         type(By.name("firstname"),newContactData.getFirst_name());
         type(By.name("middlename"),newContactData.getMiddle_name());
@@ -29,6 +27,18 @@ public class ContactHelper extends HelperBase {
         type(By.name("email"),newContactData.getEmail_1());
         type(By.name("address"),newContactData.getAddress());
         type(By.name("home"),newContactData.getHome_phone());
+
+        if (creation) {   //если форма создания то выпадающий список должен быть, если нет то выполнение упадёт
+            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(newContactData.getGroup());
+        } else {        // мы пришли на форму модификации контакта
+            Assert.assertFalse(isElementPresent(By.name("new_group"))); //проверка того что на странице модификации контакта не должна находится кнопка группы
+
+        }
+
+        if (isElementPresent(By.name("new_group"))){                  //если элемент есть тогда используем его, еслиего нет то неисспользуем
+           new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(newContactData.getGroup());
+       }
+
            }
 
     public void submitNewContact() {

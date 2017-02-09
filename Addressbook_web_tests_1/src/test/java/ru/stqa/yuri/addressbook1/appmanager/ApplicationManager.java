@@ -6,7 +6,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
 
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -27,7 +26,7 @@ public class ApplicationManager {
 
 
     public void init() {
-   //    String browser = BrowserType.FIREFOX;
+
         if (browser.equals(BrowserType.FIREFOX)){
             wd = new FirefoxDriver();
         } else if (browser.equals(BrowserType.CHROME)){
@@ -36,8 +35,8 @@ public class ApplicationManager {
             wd = new InternetExplorerDriver();
         }
 
-     //   wd = new FirefoxDriver();
-        wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+
+        wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         wd.manage().window().maximize(); //раскрыть окно
         wd.get("http://localhost:8081/addressbook/group.php");
         groupHelper = new GroupHelper(wd);

@@ -2,8 +2,8 @@ package ru.stqa.yuri.addressbook1.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
  * Created by bilovyur on 31.01.2017.
@@ -21,9 +21,14 @@ public class HelperBase {
 
     protected void type(By locator, String text) {
         click(locator);
-        wd.findElement(locator).clear();
-        wd.findElement(locator).sendKeys(text);
-    }
+        if (text != null) { //если null ничего не делаем
+        String existingText = wd.findElement(locator).getAttribute("value");
+            if (!text.equals(existingText)){
+                wd.findElement(locator).clear();
+                wd.findElement(locator).sendKeys(text);
+            }
+                   }
+          }
 
     public  boolean isAlertPresent() {
         try {
@@ -34,4 +39,11 @@ public class HelperBase {
         }
     }
 
+    protected boolean isElementPresent(By locator) { //ищем локатор
+        try {
+            wd.findElement(locator);
+            return true; //если элемент нашёлся
+        } catch(NoSuchElementException ex) {return false;} // если элемент не найден возращаем false
+
+    }
 }

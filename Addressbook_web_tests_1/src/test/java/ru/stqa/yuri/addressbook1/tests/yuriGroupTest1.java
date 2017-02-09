@@ -1,7 +1,7 @@
 package ru.stqa.yuri.addressbook1.tests;
 
-import org.testng.annotations.Test;
-import ru.stqa.yuri.addressbook1.model.GroupData1;
+        import org.testng.annotations.Test;
+        import ru.stqa.yuri.addressbook1.model.GroupData1;
 
 //тест создание новой группы
 
@@ -11,17 +11,17 @@ import ru.stqa.yuri.addressbook1.model.GroupData1;
 public class yuriGroupTest1 extends TestBase {
 
 
-        @Test
-        public void test_group_Tests1() {
-            app.getNavigationHelper().openGroupPage();
-            app.getGroupHelper().createNewGroup();
-            app.getGroupHelper().fillGroupForm(new GroupData1("Yuri1_test_group", "Header_group", "Yuri_group"));
-            app.getGroupHelper().submitGroupCreation();
-            app.getNavigationHelper().openGroupPage(); //зайти на страницу Группы
-
-        }
+    @Test
+    public void test_group_Tests1() {
+        app.getNavigationHelper().openGroupPage();
+        app.getGroupHelper().createNewGroup();
+        app.getGroupHelper().fillGroupForm(new GroupData1("Yuri1_test_group", null, null));
+        app.getGroupHelper().submitGroupCreation();
+        app.getNavigationHelper().openGroupPage(); //зайти на страницу Группы
 
     }
+
+}
 
 
 

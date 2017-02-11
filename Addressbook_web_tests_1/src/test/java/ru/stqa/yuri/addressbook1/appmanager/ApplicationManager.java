@@ -15,9 +15,9 @@ public class ApplicationManager {
     WebDriver wd;
 
     private ContactHelper contactHelper;
-    private SessionHelper sessionHelper ;
-    private NavigationHelper navigationHelper ;
-    private  GroupHelper groupHelper ;
+    private SessionHelper sessionHelper;
+    private NavigationHelper navigationHelper;
+    private GroupHelper groupHelper;
     private String browser;
 
     public ApplicationManager(String browser) {
@@ -27,11 +27,11 @@ public class ApplicationManager {
 
     public void init() {
 
-        if (browser.equals(BrowserType.FIREFOX)){
+        if (browser.equals(BrowserType.FIREFOX)) {
             wd = new FirefoxDriver();
-        } else if (browser.equals(BrowserType.CHROME)){
+        } else if (browser.equals(BrowserType.CHROME)) {
             wd = new ChromeDriver();
-        } else if (browser.equals(BrowserType.IE)){
+        } else if (browser.equals(BrowserType.IE)) {
             wd = new InternetExplorerDriver();
         }
 

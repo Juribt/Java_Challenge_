@@ -68,4 +68,21 @@ public class ContactHelper extends HelperBase {
                click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
                wd.switchTo().alert().accept(); //make accepted
     }
+
+    public boolean isThereAContact() {      //есть ли есть какой-нибудь контакт на странице Контактов
+        return isElementPresent(By.name("selected[]"));
+    }
+
+    public void createContact(NewContactData1 contact) { //создание контакта
+        createNewContact();
+        fillNewContactForm(contact,true);
+        submitNewContact();
+        checkContact();
+    }
+    public void checkContact() { //посмотреть что контакт создался
+        if (isElementPresent(By.id("maintable"))){     //если мы уже на странице то никуда не переходить
+            return;
+        }
+        click(By.linkText("home"));
+    }
 }

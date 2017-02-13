@@ -38,7 +38,7 @@ public class ApplicationManager {
 
         wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         wd.manage().window().maximize(); //раскрыть окно
-        wd.get("http://localhost:8081/addressbook/group.php");
+        wd.get("http://localhost:8081/addressbook");
         groupHelper = new GroupHelper(wd);
         navigationHelper = new NavigationHelper(wd);
         sessionHelper = new SessionHelper(wd);

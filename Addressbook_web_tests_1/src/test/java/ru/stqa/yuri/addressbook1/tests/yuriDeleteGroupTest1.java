@@ -4,6 +4,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.yuri.addressbook1.model.GroupData1;
 
+import java.util.List;
+
 //тест удаление группы
 public class yuriDeleteGroupTest1 extends TestBase {
 
@@ -14,12 +16,19 @@ public class yuriDeleteGroupTest1 extends TestBase {
             app.getGroupHelper().createGroup(new GroupData1("Yuri1_test_group", null, null)); // если нет то создаём
         }
 
-        int before = app.getGroupHelper().getGroupCount();
-        app.getGroupHelper().selectGroup();
+       // int before = app.getGroupHelper().getGroupCount();
+        List<GroupData1> before = app.getGroupHelper().getGroupList();
+        app.getGroupHelper().selectGroup(before.size() -1);
         app.getGroupHelper().deleteSelectedGroups();
         app.getNavigationHelper().openGroupPage();
-        int after = app.getGroupHelper().getGroupCount();
-        Assert.assertEquals(after, before-1);  // должно убавиться на -1 группу
+       // int after = app.getGroupHelper().getGroupCount();
+        List<GroupData1> after = app.getGroupHelper().getGroupList();
+        Assert.assertEquals(after.size(), before.size()-1);  // должно убавиться на -1 группу
+
+        before.remove(before.size()-1); //в before должны быть такой же список как и в after
+
+            Assert.assertEquals(before,after); //можно сравнивать списки и без цикла
+
     }
 
 

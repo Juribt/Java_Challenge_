@@ -22,7 +22,7 @@ public class GroupModificationTests extends TestBase {
         if (!app.getGroupHelper().isThereAGroup()) { //проверка на то что групп на странице нет
             app.getGroupHelper().createGroup(new GroupData1("Yuri1_test_group", null, null)); // если нет то создаём
         }
-        //int before = app.getGroupHelper().getGroupCount(); //до изменения
+
         List<GroupData1> before = app.getGroupHelper().getGroupList();
         app.getGroupHelper().selectGroup(before.size() - 1);
         app.getGroupHelper().initGroupModification();
@@ -30,7 +30,7 @@ public class GroupModificationTests extends TestBase {
         app.getGroupHelper().fillGroupForm(group);
         app.getGroupHelper().submitGroupModification();
         app.getNavigationHelper().openGroupPage();
-        //   int after = app.getGroupHelper().getGroupCount(); //после изменения
+
         List<GroupData1> after = app.getGroupHelper().getGroupList();
         Assert.assertEquals(after.size(), before.size()); // количество групп не изменилось
         before.remove(before.size() - 1); //удалить первоначальное значение группы

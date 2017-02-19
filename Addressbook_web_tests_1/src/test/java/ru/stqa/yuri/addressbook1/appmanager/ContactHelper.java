@@ -49,13 +49,30 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("add new"));
     }
 
-    public void changeContact() {
-        click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img")); //edit contact
+    public void changeContact(int index) {
+      //  wd.findElements(By.name("selected[]")&&isElementPresent(By.cssSelector("td.center"))).get(index).click();
+    //    click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img")); //edit contact
+     //   wd.findElements(By.name("selected[]").get(index).click();
+     //   wd.findElement(By.cssSelector("input[value='" + index + "' ]")).click();
+        wd.findElements(By.name("selected[]")).get(index).click(); //выбираем элемент по индексу и кликаем его
+
+
+    }
+
+    public void Mod_contact(int index) {
+        //  wd.findElements(By.name("selected[]")&&isElementPresent(By.cssSelector("td.center"))).get(index).click();
+        //    click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img")); //edit contact
+        //   wd.findElements(By.name("selected[]").get(index).click();
+        //   wd.findElement(By.cssSelector("input[value='" + index + "' ]")).click();
+        wd.findElements(By.name("selected[]")).get(index).click(); //выбираем элемент по индексу и кликаем его
+        wd.findElements(By.xpath("//td[@class='center']")).get(index).click(); // поиск кнопки изменение контакта
+
     }
 
     public void updateContact() {
         click(By.xpath("//div[@id='content']/form[1]/input[22]")); //submit updated contact
     }
+
     public void deleteContact() {  // удаление контакта - 1-й вариант
         click(By.xpath("//div[@id='content']/form[2]/input[2]"));
          }
@@ -67,6 +84,7 @@ public class ContactHelper extends HelperBase {
     public void deleteContact_1() {  // удаление контакта - 2-й вариант
                click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
                wd.switchTo().alert().accept(); //make accepted
+     //   .//*[@id='content']/form[2]/div[2]/input
     }
 
     public boolean isThereAContact() {      //есть ли есть какой-нибудь контакт на странице Контактов

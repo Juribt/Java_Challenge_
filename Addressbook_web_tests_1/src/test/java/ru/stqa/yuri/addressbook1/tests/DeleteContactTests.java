@@ -27,7 +27,11 @@ public class DeleteContactTests extends TestBase {
         app.getContactHelper().checkContact(); //зайти снова на страницу контактов
         List<NewContactData1> after = app.getContactHelper().getContactList();
       //  int after = app.getContactHelper().getContactCount(); //проверка на кол-во групп на странице в конце
-        Assert.assertEquals(after.size(), before.size()-1);
+        Assert.assertEquals(after.size(), before.size()-1); //проверка на количество контактов в списке
+        before.remove(before.size()-1); //список контактов должен быть одинаковым с after
+
+          Assert.assertEquals(before,after ); //проверка списков до и после удаления
+
     }
 
 

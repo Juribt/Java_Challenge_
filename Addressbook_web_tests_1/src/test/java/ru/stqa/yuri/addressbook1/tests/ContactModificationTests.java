@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.yuri.addressbook1.model.NewContactData1;
 
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -23,12 +24,17 @@ public class ContactModificationTests extends TestBase {
       //  int before = app.getContactHelper().getContactCount();
    //     app.getContactHelper().changeContact(before -1); //изменить контакт
         app.getContactHelper().Mod_contact(before.size() -1);
-        app.getContactHelper().fillNewContactForm(new NewContactData1("New_Testovich", "Test2", "Testoviy", "Testik3", "Test_Super_Technologies", "89526656777", "john_gallow@yahoo.com", "Scotland, Solsbery, Flint str, h 7, fl. 8", "6402780",null), false);
+        NewContactData1 contact = new NewContactData1(before.get(before.size() -1).getId(),"New_Testovich", "Test2", "Testoviy", "Testik3", "Test_Super_Technologies", "89526656777", "john_gallow@yahoo.com", "Scotland, Solsbery, Flint str, h 7, fl. 8", "6402780",null);
+        app.getContactHelper().fillNewContactForm(contact, false);
         app.getContactHelper().updateContact(); //submit updated contact
         app.getContactHelper().checkContact(); // зайти на страницу для проверки
         List<NewContactData1> after = app.getContactHelper().getContactList();
         //   int after = app.getContactHelper().getContactCount();
         Assert.assertEquals(after.size(), before.size());
 
-           }
+        before.remove(before.size()-1);
+        before.add(contact);
+        Assert.assertEquals(new HashSet<Object>(before),new HashSet<Object>(after) );
+
+    }
 }

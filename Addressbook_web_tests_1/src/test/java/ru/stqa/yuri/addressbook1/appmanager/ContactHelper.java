@@ -61,7 +61,6 @@ public class ContactHelper extends HelperBase {
 
     public void Mod_contact(int index) {
         wd.findElements(By.name("selected[]")).get(index).click(); //выбираем элемент по индексу и кликаем его
-     //   wd.findElements(By.xpath("//td[@class='center']")).get(index).click(); // поиск кнопки изменение контакта
         wd.findElements(By.cssSelector("img[alt=\"Edit\"]")).get(index).click();
     }
 
@@ -80,7 +79,6 @@ public class ContactHelper extends HelperBase {
     public void deleteContact_1() {  // удаление контакта - 2-й вариант
         click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
         wd.switchTo().alert().accept(); //make accepted
-        //   .//*[@id='content']/form[2]/div[2]/input
     }
 
     public boolean isThereAContact() {      //есть ли есть какой-нибудь контакт на странице Контактов
@@ -107,21 +105,16 @@ public class ContactHelper extends HelperBase {
 
     public List<NewContactData1> getContactList() {
         List<NewContactData1> contacts = new ArrayList<NewContactData1>();
-    //    List<WebElement> elements = wd.findElements(By.xpath("//tr[@name = 'entry']/td[3]"));
-    //    List<WebElement> elements = wd.findElements(By.id("maintable"));
+
         List<WebElement> elements = wd.findElements(By.xpath(("//tr[@name = 'entry']")));
-        //By.id("maintable")
+
         for (WebElement element : elements) {
-      //      By.cssSelector("html body div div form input")
+
             String name = element.findElement(By.xpath("td[3]")).getText();
             String surname = element.findElement(By.xpath("td[2]")).getText();
 
-         // String id = Integer.parseInt(wd.findElement(By.xpath("//tr[@name = 'entry']/td[1]/input")).getAttribute("id"));
-            //  int id = Integer.parseInt(wd.findElement(By.cssSelector(".center input")).getAttribute("id"));
-           // int id = Integer.parseInt(element.findElement(By.tagName("input")). getAttribute("value")) ;
-      //      int id = Integer.parseInt(element.findElement(By.cssSelector(".center input")).getAttribute("id"));
-            int id= Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            NewContactData1 contact = new NewContactData1(id,surname, name, null, null, null, null, null, null, null, null);
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value")); // получаем id контакта
+            NewContactData1 contact = new NewContactData1(id, surname, name, null, null, null, null, null, null, null, null);
             contacts.add(contact);
         }
         return contacts;

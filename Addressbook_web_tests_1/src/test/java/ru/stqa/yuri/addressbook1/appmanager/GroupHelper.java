@@ -68,8 +68,7 @@ public class GroupHelper extends HelperBase {
 
     public int getGroupCount() {
         return wd.findElements(By.name("selected[]")).size(); //возвращает количество элементов на странице
-        // return 0;
-    }
+          }
 
     public List<GroupData1> getGroupList() {
         List<GroupData1> groups = new ArrayList<GroupData1>();

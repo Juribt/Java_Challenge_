@@ -5,7 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.yuri.addressbook1.model.NewContactData1;
 
-import java.util.HashSet;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -19,23 +19,21 @@ public class yuriNewContactTest1 extends TestBase {
     public void test_newcontact_Tests() {
         app.getContactHelper().checkContact(); //зайти на страницу контактов
         List<NewContactData1> before = app.getContactHelper().getContactList(); //список контактов до
-        NewContactData1 contact = new NewContactData1("Testovich", "Test", "Testyi", "Testik", "Test_High_Technologies", "89526656583", "john_swift@yahoo.com", "England, Solsbery, Flint str, h 7, fl. 8", "6402780","Yuri1_test_group");
-     //   int before = app.getContactHelper().getContactCount();
+        NewContactData1 contact = new NewContactData1("Testovich5", "Test", "Testyi", "Testik", "Test_High_Technologies", "89526656583", "john_swift@yahoo.com", "England, Solsbery, Flint str, h 7, fl. 8", "6402780", "Yuri1_test_group");
+
         app.getContactHelper().createContact(contact);
         List<NewContactData1> after = app.getContactHelper().getContactList(); //список контактов после
-     //   int after = app.getContactHelper().getContactCount();
-        Assert.assertEquals(after.size(), before.size()+1);
 
-      //  before.add(contact);
-        int max =0;
-        for (NewContactData1 g: after){
-          if (g.getId()> max){
-              max = g.getId();
-          }
-        }
-        contact.setId(max);
+        Assert.assertEquals(after.size(), before.size() + 1);
+
         before.add(contact);
-        Assert.assertEquals(new HashSet<Object>(before),new HashSet<Object>(after) );
+
+        Comparator<? super NewContactData1> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
+
+        before.sort(byId);
+        after.sort(byId);
+        Assert.assertEquals(before, after); //сравнение упорядоченных списков контактов
+
 
     }
 

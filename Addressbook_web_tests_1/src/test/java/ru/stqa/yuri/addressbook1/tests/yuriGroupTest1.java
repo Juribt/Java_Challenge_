@@ -21,16 +21,16 @@ public class yuriGroupTest1 extends TestBase {
         app.getNavigationHelper().openGroupPage();
         List<GroupData1> before = app.getGroupHelper().getGroupList();
         GroupData1 group = new GroupData1("Yuri1_test_group", null, null);
-        //   int before = app.getGroupHelper().getGroupCount();
+
         app.getGroupHelper().createGroup(group);
         app.getNavigationHelper().openGroupPage(); //зайти на страницу Группы
         List<GroupData1> after = app.getGroupHelper().getGroupList();
-       // int after = app.getGroupHelper().getGroupCount();
-        Assert.assertEquals(after.size(), before.size()+1);
 
-     //   group.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(),o2.getId())).get().getId());  //установка идентификатора, должен быть самый большой
+        Assert.assertEquals(after.size(), before.size() + 1);
+
+
         before.add(group);
-        Comparator<? super GroupData1> byId = (g1,g2) -> Integer.compare(g1.getId(), g2.getId());
+        Comparator<? super GroupData1> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
         before.sort(byId);
         after.sort(byId);
 

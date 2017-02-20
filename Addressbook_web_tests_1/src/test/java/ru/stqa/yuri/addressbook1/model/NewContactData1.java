@@ -30,27 +30,6 @@ public class NewContactData1 {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        NewContactData1 that = (NewContactData1) o;
-
-        if (id != that.id) return false;
-        if (last_name != null ? !last_name.equals(that.last_name) : that.last_name != null) return false;
-        return first_name != null ? first_name.equals(that.first_name) : that.first_name == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (last_name != null ? last_name.hashCode() : 0);
-        result = 31 * result + (first_name != null ? first_name.hashCode() : 0);
-        return result;
-    }
-
     public int getId() {
         return id;
     }
@@ -70,8 +49,27 @@ public class NewContactData1 {
         this.group = group;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        NewContactData1 that = (NewContactData1) o;
+
+        if (last_name != null ? !last_name.equals(that.last_name) : that.last_name != null) return false;
+        return first_name != null ? first_name.equals(that.first_name) : that.first_name == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = last_name != null ? last_name.hashCode() : 0;
+        result = 31 * result + (first_name != null ? first_name.hashCode() : 0);
+        return result;
+    }
+
     public NewContactData1(String last_name, String first_name, String middle_name, String nick_name, String company_name, String mobile_phone, String email_1, String address, String home_phone, String group) {
-        this.id = 0;
+        this.id = Integer.MAX_VALUE;
         this.last_name = last_name;
         this.first_name = first_name;
         this.middle_name = middle_name;
@@ -79,6 +77,7 @@ public class NewContactData1 {
 
         this.company_name = company_name;
         this.mobile_phone = mobile_phone;
+
         this.email_1 = email_1;
         this.address = address;
         this.home_phone = home_phone;

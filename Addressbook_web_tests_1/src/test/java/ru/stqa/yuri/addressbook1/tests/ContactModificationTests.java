@@ -13,7 +13,7 @@ import java.util.List;
 //изменение контактов
 public class ContactModificationTests extends TestBase {
 
-    @Test
+    @Test (enabled = false)
     public void testContactModification() {
         app.getNavigationHelper().checkNewContact(); //открыть страницу контактов
         if (!app.getContactHelper().isThereAContact()) { //проверка на то что контактов на странице нет

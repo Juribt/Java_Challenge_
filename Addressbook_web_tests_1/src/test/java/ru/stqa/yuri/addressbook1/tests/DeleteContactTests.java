@@ -12,7 +12,7 @@ import java.util.List;
 //1-й тест на удаление контакта
 public class DeleteContactTests extends TestBase {
 
-    @Test
+    @Test(enabled = false)
     public void testContactDeletion() {
         app.getNavigationHelper().checkNewContact(); //открыть страницу контактов
         if (!app.getContactHelper().isThereAContact()) { //проверка на то что контактов на странице нет

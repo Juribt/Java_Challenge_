@@ -1,5 +1,7 @@
 package ru.stqa.yuri.addressbook1.model;
 
+import ru.stqa.yuri.addressbook1.tests.TestBase;
+
 /**
  * Created by bilovyur on 25.01.2017.
  */
@@ -71,4 +73,6 @@ public class GroupData1 {
     public void setId(int id) {
         this.id = id;
     }
+
+
 }

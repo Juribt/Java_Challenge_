@@ -16,7 +16,7 @@ import java.util.List;
 public class yuriGroupTest1 extends TestBase {
 
 
-    @Test
+    @Test(enabled = false)
     public void test_group_Tests1() {
         app.getNavigationHelper().openGroupPage();
         List<GroupData1> before = app.getGroupHelper().getGroupList();

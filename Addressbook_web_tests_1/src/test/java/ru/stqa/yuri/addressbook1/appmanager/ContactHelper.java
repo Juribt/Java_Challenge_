@@ -92,6 +92,12 @@ public class ContactHelper extends HelperBase {
         checkContact();
     }
 
+        public void modifyContact(int index, NewContactData1 contact) { //изменение контакта
+        Mod_contact(index);
+        fillNewContactForm(contact, false);
+        updateContact(); //submit updated contact
+        checkContact(); // зайти на страницу для проверки
+    }
     public void checkContact() { //посмотреть что контакт создался
         if (isElementPresent(By.id("maintable"))) {     //если мы уже на странице то никуда не переходить
             return;

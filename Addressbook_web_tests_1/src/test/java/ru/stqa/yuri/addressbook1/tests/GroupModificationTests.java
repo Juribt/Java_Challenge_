@@ -18,7 +18,7 @@ import java.util.List;
 //тест на изменение группы
 public class GroupModificationTests extends TestBase {
 
-    @BeforeMethod
+    @BeforeMethod(enabled = false)
     public void testPreconditions(){
         app.getNavigationHelper().openGroupPage();
         if (!app.getGroupHelper().isThereAGroup()) { //проверка на то что групп на странице нет
@@ -27,7 +27,7 @@ public class GroupModificationTests extends TestBase {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void testGroupModification() {
 
 

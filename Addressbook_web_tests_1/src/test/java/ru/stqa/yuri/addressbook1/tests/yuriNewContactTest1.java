@@ -15,7 +15,7 @@ import java.util.List;
 public class yuriNewContactTest1 extends TestBase {
 
     //тест создание нового контакта
-    @Test(enabled = false)
+    @Test
     public void test_newcontact_Tests() {
         app.getContactHelper().checkContact(); //зайти на страницу контактов
         List<NewContactData1> before = app.getContactHelper().getContactList(); //список контактов до

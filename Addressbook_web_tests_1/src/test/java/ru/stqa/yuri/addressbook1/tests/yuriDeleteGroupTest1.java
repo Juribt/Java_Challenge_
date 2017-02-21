@@ -10,7 +10,7 @@ import java.util.List;
 //тест удаление группы
 public class yuriDeleteGroupTest1 extends TestBase {
 
-    @BeforeMethod
+    @BeforeMethod(enabled = false)
     public void testPreconditions(){
         app.getNavigationHelper().openGroupPage();
         if (!app.getGroupHelper().isThereAGroup()) { //проверка на то что групп на странице нет
@@ -19,7 +19,7 @@ public class yuriDeleteGroupTest1 extends TestBase {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void yuriDeletionGroupTest1() {
 
         List<GroupData1> before = app.getGroupHelper().getGroupList();

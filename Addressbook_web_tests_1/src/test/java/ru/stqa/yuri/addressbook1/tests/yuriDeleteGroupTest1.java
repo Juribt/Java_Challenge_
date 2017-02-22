@@ -10,27 +10,27 @@ import java.util.List;
 //тест удаление группы
 public class yuriDeleteGroupTest1 extends TestBase {
 
-    @BeforeMethod(enabled = false)
+    @BeforeMethod
     public void testPreconditions(){
-        app.getNavigationHelper().openGroupPage();
-        if (!app.getGroupHelper().isThereAGroup()) { //проверка на то что групп на странице нет
-            app.getGroupHelper().createGroup(new GroupData1("Yuri1_test_group", null, null)); // если нет то создаём
+        app.goTo().groupPage();
+        if (app.group().list().size() == 0) { //проверка на то что групп на странице нет
+            app.group().create(new GroupData1("Yuri1_test_group", null, null)); // если нет то создаём
         }
     }
 
 
-    @Test(enabled = false)
+    @Test
     public void yuriDeletionGroupTest1() {
 
-        List<GroupData1> before = app.getGroupHelper().getGroupList();
-        app.getGroupHelper().selectGroup(before.size() - 1);
-        app.getGroupHelper().deleteSelectedGroups();
-        app.getNavigationHelper().openGroupPage();
+        List<GroupData1> before = app.group().list();
+        int index = before.size() - 1;
 
-        List<GroupData1> after = app.getGroupHelper().getGroupList();
+        app.group().delete(index);
+
+        List<GroupData1> after = app.group().list();
         Assert.assertEquals(after.size(), before.size() - 1);  // должно убавиться на -1 группу
 
-        before.remove(before.size() - 1); //в before должны быть такой же список как и в after
+        before.remove(index); //в before должны быть такой же список как и в after
 
         Assert.assertEquals(before, after); //можно сравнивать списки и без цикла
 

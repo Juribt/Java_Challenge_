@@ -5,7 +5,6 @@ import org.testng.annotations.Test;
 import ru.stqa.yuri.addressbook1.model.GroupData1;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 //тест создание новой группы
@@ -18,13 +17,13 @@ public class yuriGroupTest1 extends TestBase {
 
     @Test(enabled = false)
     public void test_group_Tests1() {
-        app.getNavigationHelper().openGroupPage();
-        List<GroupData1> before = app.getGroupHelper().getGroupList();
+        app.goTo().groupPage();
+        List<GroupData1> before = app.group().list();
         GroupData1 group = new GroupData1("Yuri1_test_group", null, null);
 
-        app.getGroupHelper().createGroup(group);
-        app.getNavigationHelper().openGroupPage(); //зайти на страницу Группы
-        List<GroupData1> after = app.getGroupHelper().getGroupList();
+        app.group().create(group);
+        app.goTo().groupPage(); //зайти на страницу Группы
+        List<GroupData1> after = app.group().list();
 
         Assert.assertEquals(after.size(), before.size() + 1);
 

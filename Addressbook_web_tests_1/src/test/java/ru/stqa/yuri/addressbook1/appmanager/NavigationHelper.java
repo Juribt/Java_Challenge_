@@ -13,7 +13,7 @@ public class NavigationHelper extends HelperBase {
         super(wd);
     }
 
-    public void openGroupPage() { //проверка нескольких сочетаний того, что страница Группы уже открыта
+    public void groupPage() { //проверка нескольких сочетаний того, что страница Группы уже открыта
         if(isElementPresent(By.tagName("h1")) && wd.findElement(By.tagName("h1")).getText().equals("Groups")
                 && isElementPresent(By.name("new"))){
             return;

@@ -17,12 +17,12 @@ public class yuriNewContactTest1 extends TestBase {
     //тест создание нового контакта
     @Test
     public void test_newcontact_Tests() {
-        app.getContactHelper().checkContact(); //зайти на страницу контактов
-        List<NewContactData1> before = app.getContactHelper().getContactList(); //список контактов до
+        app.contact().checkContact(); //зайти на страницу контактов
+        List<NewContactData1> before = app.contact().contactlist(); //список контактов до
         NewContactData1 contact = new NewContactData1("Testovich5", "Test", "Testyi", "Testik", "Test_High_Technologies", "89526656583", "john_swift@yahoo.com", "England, Solsbery, Flint str, h 7, fl. 8", "6402780", "Yuri1_test_group");
 
-        app.getContactHelper().createContact(contact);
-        List<NewContactData1> after = app.getContactHelper().getContactList(); //список контактов после
+        app.contact().create_contact(contact);
+        List<NewContactData1> after = app.contact().contactlist(); //список контактов после
 
         Assert.assertEquals(after.size(), before.size() + 1);
 

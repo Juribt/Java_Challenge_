@@ -18,25 +18,25 @@ import java.util.List;
 //тест на изменение группы
 public class GroupModificationTests extends TestBase {
 
-    @BeforeMethod(enabled = false)
+    @BeforeMethod
     public void testPreconditions(){
-        app.getNavigationHelper().openGroupPage();
-        if (!app.getGroupHelper().isThereAGroup()) { //проверка на то что групп на странице нет
-            app.getGroupHelper().createGroup(new GroupData1("Yuri1_test_group", null, null)); // если нет то создаём
+        app.goTo().groupPage();
+        if (app.group().list().size() == 0) { //проверка на то что групп на странице нет
+            app.group().create(new GroupData1("Yuri1_test_group", null, null)); // если нет то создаём
         }
     }
 
 
-    @Test(enabled = false)
+    @Test
     public void testGroupModification() {
 
 
-        List<GroupData1> before = app.getGroupHelper().getGroupList();
+        List<GroupData1> before = app.group().list();
         int index = before.size() - 1; //оптимизация переменной
         GroupData1 group = new GroupData1(before.get(index).getId(),"Yuri1_test_group", "Header1_group", "Yuri3_group");
-        app.getGroupHelper().modifyGroup(index, group);// модификация группы
+        app.group().modify(index, group);// модификация группы
 
-        List<GroupData1> after = app.getGroupHelper().getGroupList();
+        List<GroupData1> after = app.group().list();
         Assert.assertEquals(after.size(), before.size()); // количество групп не изменилось
         before.remove(index); //удалить первоначальное значение группы
         before.add(group); //добавить последнее изменённое значение

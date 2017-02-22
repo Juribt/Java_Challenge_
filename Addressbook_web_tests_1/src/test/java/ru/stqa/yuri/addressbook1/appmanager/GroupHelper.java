@@ -47,7 +47,7 @@ public class GroupHelper extends HelperBase {
         click(By.name("update"));
     }
 
-    public void openGroupPage_test() { //проверка нескольких сочетаний того, что страница Группы уже открыта
+    public void open_page() { //проверка нескольких сочетаний того, что страница Группы уже открыта
         if (isElementPresent(By.tagName("h1")) && wd.findElement(By.tagName("h1")).getText().equals("Groups")
                 && isElementPresent(By.name("new"))) {
             return;
@@ -55,19 +55,19 @@ public class GroupHelper extends HelperBase {
         click(By.linkText("groups"));
     }
 
-    public void createGroup(GroupData1 group) {
+    public void create(GroupData1 group) {
         createNewGroup();
         fillGroupForm(group);
         submitGroupCreation();
-        openGroupPage_test();//
+        open_page();//
     }
 
-    public void modifyGroup(int index,GroupData1 group ) { //оптимизация модификации группы
+    public void modify(int index, GroupData1 group) { //оптимизация модификации группы
         selectGroup(index);
         initGroupModification();
         fillGroupForm(group);
         submitGroupModification();
-        openGroupPage_test();
+        open_page();
     }
 
     public boolean isThereAGroup() {      //есть ли группа на странице Групп
@@ -76,17 +76,23 @@ public class GroupHelper extends HelperBase {
 
     public int getGroupCount() {
         return wd.findElements(By.name("selected[]")).size(); //возвращает количество элементов на странице
-          }
+    }
 
-    public List<GroupData1> getGroupList() {
+    public List<GroupData1> list() {
         List<GroupData1> groups = new ArrayList<GroupData1>();
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
-        for(WebElement element : elements) {
-            String name= element.getText(); //получаем текст с элемента на странице
-            int id= Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value")); //получаем идентификатор группы
-                    GroupData1 group = new GroupData1(id, name, null,null); //получить объект группы
+        for (WebElement element : elements) {
+            String name = element.getText(); //получаем текст с элемента на странице
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value")); //получаем идентификатор группы
+            GroupData1 group = new GroupData1(id, name, null, null); //получить объект группы
             groups.add(group); //Добавить созданный объект в список
         }
         return groups; //возвращение списка
+    }
+
+    public void delete(int index) {
+        selectGroup(index);
+        deleteSelectedGroups();
+        open_page();
     }
 }

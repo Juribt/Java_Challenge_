@@ -6,11 +6,10 @@ import ru.stqa.yuri.addressbook1.tests.TestBase;
  * Created by bilovyur on 25.01.2017.
  */
 public class GroupData1 {
-    private int id;
-    private final String nameGroup;
-    private final String headerGroup;
-    private final String nameFooter;
-
+    private int id = Integer.MAX_VALUE;
+    private String nameGroup;
+    private String headerGroup;
+    private String nameFooter;
 
 
     public int getId() {
@@ -18,21 +17,6 @@ public class GroupData1 {
         return id;
     }
 
-    public GroupData1(int id, String nameGroup, String headerGroup, String nameFooter) {
-        this.id = id;
-        this.nameGroup = nameGroup;
-        this.headerGroup = headerGroup;
-        this.nameFooter = nameFooter;
-
-    }
-
-    public GroupData1(String nameGroup, String headerGroup, String nameFooter) {
-        this.id = Integer.MAX_VALUE;
-        this.nameGroup = nameGroup;
-        this.headerGroup = headerGroup;
-        this.nameFooter = nameFooter;
-
-    }
 
     public String getNameGroup() {
         return nameGroup;
@@ -70,9 +54,23 @@ public class GroupData1 {
                 '}';
     }
 
-    public void setId(int id) {
+    public GroupData1 withId(int id) {
         this.id = id;
+        return this;
     }
 
+    public GroupData1 withNameGroup(String nameGroup) {
+        this.nameGroup = nameGroup;
+        return this;
+    }
 
+    public GroupData1 withHeaderGroup(String headerGroup) {
+        this.headerGroup = headerGroup;
+        return this;
+    }
+
+    public GroupData1 withNameFooter(String nameFooter) {
+        this.nameFooter = nameFooter;
+        return this;
+    }
 }

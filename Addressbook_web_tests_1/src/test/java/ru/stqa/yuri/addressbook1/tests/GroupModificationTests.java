@@ -22,7 +22,7 @@ public class GroupModificationTests extends TestBase {
     public void testPreconditions(){
         app.goTo().groupPage();
         if (app.group().list().size() == 0) { //проверка на то что групп на странице нет
-            app.group().create(new GroupData1("Yuri1_test_group", null, null)); // если нет то создаём
+            app.group().create(new GroupData1().withNameGroup("Yuri1_test_group")); // если нет то создаём
         }
     }
 
@@ -33,7 +33,7 @@ public class GroupModificationTests extends TestBase {
 
         List<GroupData1> before = app.group().list();
         int index = before.size() - 1; //оптимизация переменной
-        GroupData1 group = new GroupData1(before.get(index).getId(),"Yuri1_test_group", "Header1_group", "Yuri3_group");
+        GroupData1 group = new GroupData1().withId(before.get(index).getId()).withNameGroup("Yuri1_test_group").withHeaderGroup("Header1_group").withNameFooter("Yuri3_group");
         app.group().modify(index, group);// модификация группы
 
         List<GroupData1> after = app.group().list();

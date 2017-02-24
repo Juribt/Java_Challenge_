@@ -5,12 +5,10 @@ package ru.stqa.yuri.addressbook1.model;
  */
 public class NewContactData1 {
     private int id;
-    private final String last_name;
-    private final String first_name;
+    private  String last_name;
+    private  String first_name;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+
 
     private final String middle_name;
     private final String nick_name;
@@ -28,6 +26,9 @@ public class NewContactData1 {
                 ", last_name='" + last_name + '\'' +
                 ", first_name='" + first_name + '\'' +
                 '}';
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId() {

@@ -14,7 +14,7 @@ public class yuriDeleteGroupTest1 extends TestBase {
     public void testPreconditions(){
         app.goTo().groupPage();
         if (app.group().list().size() == 0) { //проверка на то что групп на странице нет
-            app.group().create(new GroupData1("Yuri1_test_group", null, null)); // если нет то создаём
+            app.group().create(new GroupData1().withNameGroup("Yuri1_test_group")); // если нет то создаём
         }
     }
 

@@ -15,11 +15,11 @@ import java.util.List;
 public class yuriGroupTest1 extends TestBase {
 
 
-    @Test(enabled = false)
+    @Test(enabled = true)
     public void test_group_Tests1() {
         app.goTo().groupPage();
         List<GroupData1> before = app.group().list();
-        GroupData1 group = new GroupData1("Yuri1_test_group", null, null);
+        GroupData1 group = new GroupData1().withNameGroup("Yuri1_test_group");
 
         app.group().create(group);
         app.goTo().groupPage(); //зайти на страницу Группы

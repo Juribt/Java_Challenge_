@@ -4,20 +4,19 @@ package ru.stqa.yuri.addressbook1.model;
  * Created by bilovyur on 25.01.2017.
  */
 public class NewContactData1 {
-    private int id;
+    private int id= Integer.MAX_VALUE;;
     private  String last_name;
     private  String first_name;
-
-
-
-    private final String middle_name;
-    private final String nick_name;
-    private final String company_name;
-    private final String mobile_phone;
-    private final String email_1;
-    private final String address;
-    private final String home_phone;
+    private  String middle_name;
+    private  String nick_name;
+    private  String company_name;
+    private  String mobile_phone;
+    private  String email_1;
+    private  String address;
+    private  String home_phone;
     private String group;
+
+
 
     @Override
     public String toString() {
@@ -27,28 +26,66 @@ public class NewContactData1 {
                 ", first_name='" + first_name + '\'' +
                 '}';
     }
-    public void setId(int id) {
+    public NewContactData1 withId(int id) {
         this.id = id;
+        return this;
+    }
+
+    public NewContactData1 withLast_name(String last_name) {
+        this.last_name = last_name;
+        return this;
+    }
+
+    public NewContactData1 withFirst_name(String first_name) {
+        this.first_name = first_name;
+        return this;
+    }
+
+    public NewContactData1 withMiddle_name(String middle_name) {
+        this.middle_name = middle_name;
+        return this;
+    }
+
+    public NewContactData1 withNick_name(String nick_name) {
+        this.nick_name = nick_name;
+        return this;
+    }
+
+    public NewContactData1 withCompany_name(String company_name) {
+        this.company_name = company_name;
+        return this;
+    }
+
+    public NewContactData1 withMobile_phone(String mobile_phone) {
+        this.mobile_phone = mobile_phone;
+        return this;
+    }
+
+    public NewContactData1 withEmail_1(String email_1) {
+        this.email_1 = email_1;
+        return this;
+    }
+
+    public NewContactData1 withAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public NewContactData1 withHome_phone(String home_phone) {
+        this.home_phone = home_phone;
+        return this;
+    }
+
+    public NewContactData1 withGroup(String group) {
+        this.group = group;
+        return this;
     }
 
     public int getId() {
         return id;
     }
 
-    public NewContactData1(int id, String last_name, String first_name, String middle_name, String nick_name, String company_name, String mobile_phone, String email_1, String address, String home_phone, String group) {
-        this.id = id;
-        this.last_name = last_name;
-        this.first_name = first_name;
-        this.middle_name = middle_name;
-        this.nick_name = nick_name;
 
-        this.company_name = company_name;
-        this.mobile_phone = mobile_phone;
-        this.email_1 = email_1;
-        this.address = address;
-        this.home_phone = home_phone;
-        this.group = group;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -69,21 +106,6 @@ public class NewContactData1 {
         return result;
     }
 
-    public NewContactData1(String last_name, String first_name, String middle_name, String nick_name, String company_name, String mobile_phone, String email_1, String address, String home_phone, String group) {
-        this.id = Integer.MAX_VALUE;
-        this.last_name = last_name;
-        this.first_name = first_name;
-        this.middle_name = middle_name;
-        this.nick_name = nick_name;
-
-        this.company_name = company_name;
-        this.mobile_phone = mobile_phone;
-
-        this.email_1 = email_1;
-        this.address = address;
-        this.home_phone = home_phone;
-        this.group = group;
-    }
 
     public String getLast_name() {
         return last_name;

@@ -19,7 +19,8 @@ public class yuriNewContactTest1 extends TestBase {
     public void test_newcontact_Tests() {
         app.contact().checkContact(); //зайти на страницу контактов
         List<NewContactData1> before = app.contact().contactlist(); //список контактов до
-        NewContactData1 contact = new NewContactData1("Testovich5", "Test", "Testyi", "Testik", "Test_High_Technologies", "89526656583", "john_swift@yahoo.com", "England, Solsbery, Flint str, h 7, fl. 8", "6402780", "Yuri1_test_group");
+        NewContactData1 contact = new NewContactData1()
+                .withLast_name("Testovich5").withFirst_name("Test").withMiddle_name("Testyi").withNick_name("Testik").withCompany_name("Test_High_Technologies").withMobile_phone("89526656583").withEmail_1("john_swift@yahoo.com").withAddress("England, Solsbery, Flint str, h 7, fl. 8").withHome_phone("6402780").withGroup("Yuri1_test_group");
 
         app.contact().create_contact(contact);
         List<NewContactData1> after = app.contact().contactlist(); //список контактов после

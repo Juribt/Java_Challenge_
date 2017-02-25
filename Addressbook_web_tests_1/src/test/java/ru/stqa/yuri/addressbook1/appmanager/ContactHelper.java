@@ -127,8 +127,8 @@ public class ContactHelper extends HelperBase {
             String surname = element.findElement(By.xpath("td[2]")).getText();
 
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value")); // получаем id контакта
-            NewContactData1 contact = new NewContactData1(id, surname, name, null, null, null, null, null, null, null, null);
-            contacts.add(contact);
+
+            contacts.add(new NewContactData1().withId(id).withLast_name(surname).withFirst_name(name));
         }
         return contacts;
     }

@@ -1,9 +1,15 @@
 package ru.stqa.yuri.addressbook1.tests;
 
-import org.testng.Assert;
+
 import org.testng.annotations.Test;
 import ru.stqa.yuri.addressbook1.model.GroupData1;
-import java.util.Set;
+import ru.stqa.yuri.addressbook1.model.Groups;
+
+
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 
 //тест создание новой группы
 
@@ -16,19 +22,18 @@ public class yuriGroupTest1 extends TestBase {
     @Test(enabled = true)
     public void test_group_Tests1() {
         app.goTo().groupPage();
-        Set<GroupData1> before = app.group().all();  //работа со множествами
+        Groups before = app.group().all();  //работа со множествами
         GroupData1 group = new GroupData1().withNameGroup("Yuri1_test_group");
 
         app.group().create(group);
         app.goTo().groupPage(); //зайти на страницу Группы
-        Set<GroupData1> after = app.group().all();
+        Groups after = app.group().all();
 
-        Assert.assertEquals(after.size(), before.size() + 1);
+        assertThat(after.size(), equalTo(before.size() + 1));
 
-        group.withId(after.stream().mapToInt((g)-> g.getId()).max().getAsInt()); //объекты преобразуются в числа
-        before.add(group);
 
-        Assert.assertEquals(before, after); //сравнение списков
+        assertThat(after, equalTo(
+                before.withAdded(group.withId(after.stream().mapToInt((g)-> g.getId()).max().getAsInt())))); //проверка множеств через Hamcrest
     }
 
 }

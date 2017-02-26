@@ -5,10 +5,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import ru.stqa.yuri.addressbook1.model.Contacts;
 import ru.stqa.yuri.addressbook1.model.NewContactData1;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 
 /**
  * Created by bilovyur on 31.01.2017.
@@ -118,8 +118,8 @@ public class ContactHelper extends HelperBase {
     }
 
 
-    public Set<NewContactData1> contact_all() {
-        Set<NewContactData1> contacts = new HashSet<NewContactData1>();
+    public Contacts contact_all() {
+        Contacts contacts = new Contacts();
 
         List<WebElement> elements = wd.findElements(By.xpath(("//tr[@name = 'entry']")));
 

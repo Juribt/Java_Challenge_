@@ -4,9 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.stqa.yuri.addressbook1.model.GroupData1;
-import java.util.HashSet;
+import ru.stqa.yuri.addressbook1.model.Groups;
 import java.util.List;
-import java.util.Set;
+
 
 /**
  * Created by bilovyur on 30.01.2017.
@@ -80,8 +80,8 @@ public class GroupHelper extends HelperBase {
 
 
 
-    public Set<GroupData1> all() { //вспомогательный метод возвращающий множество
-        Set<GroupData1> groups = new HashSet<GroupData1>();
+    public Groups all() { //вспомогательный метод возвращающий множество
+        Groups groups = new Groups();
 
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements) {

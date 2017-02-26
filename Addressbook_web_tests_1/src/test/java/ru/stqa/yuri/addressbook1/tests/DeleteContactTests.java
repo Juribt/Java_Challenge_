@@ -1,10 +1,13 @@
 package ru.stqa.yuri.addressbook1.tests;
 
-import org.testng.Assert;
+
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.stqa.yuri.addressbook1.model.Contacts;
 import ru.stqa.yuri.addressbook1.model.NewContactData1;
-import java.util.Set;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 /**
  * Created by bilovyur on 02.02.2017.
@@ -24,19 +27,16 @@ public class DeleteContactTests extends TestBase {
     @Test
     public void testContactDeletion() {
 
-        Set<NewContactData1> before = app.contact().contact_all();
+        Contacts before = app.contact().contact_all();
         NewContactData1 deletedContact = before.iterator().next();
 
 
 
         app.contact().delete_contact(deletedContact);
 
-        Set<NewContactData1> after = app.contact().contact_all();
-
-        Assert.assertEquals(after.size(), before.size() - 1); //проверка на количество контактов в списке
-        before.remove(deletedContact); //список контактов должен быть одинаковым с after
-
-        Assert.assertEquals(before, after); //проверка списков до и после удаления
+        Contacts after = app.contact().contact_all();
+        assertEquals(after.size(), before.size() - 1);  // должно убавиться на -1 контакт
+        assertThat(after, equalTo(before.without(deletedContact)));
 
     }
 

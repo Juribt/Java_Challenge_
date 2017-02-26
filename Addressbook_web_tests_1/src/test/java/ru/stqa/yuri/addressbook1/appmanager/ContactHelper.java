@@ -6,9 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.yuri.addressbook1.model.NewContactData1;
-
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by bilovyur on 31.01.2017.
@@ -53,15 +53,15 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("add new"));
     }
 
-    public void changeContact(int index) {
-        wd.findElements(By.name("selected[]")).get(index).click(); //выбираем элемент по индексу и кликаем его
 
-
+    public void changeContactById(int id) {
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click(); //выбираем элемент по индексу и кликаем его
     }
 
-    public void Mod_contact(int index) {
-        wd.findElements(By.name("selected[]")).get(index).click(); //выбираем элемент по индексу и кликаем его
-        wd.findElements(By.cssSelector("img[alt=\"Edit\"]")).get(index).click();
+    public void modifyById(int id) {
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+        wd.findElement(By.cssSelector("img[alt=\"Edit\"]")).click();
+
     }
 
     public void updateContact() {
@@ -92,12 +92,13 @@ public class ContactHelper extends HelperBase {
         checkContact();
     }
 
-        public void modifyContact(int index, NewContactData1 contact) { //изменение контакта
-        Mod_contact(index);
+    public void modifyContact(NewContactData1 contact) { //изменение контакта
+        modifyById(contact.getId());
         fillNewContactForm(contact, false);
         updateContact(); //submit updated contact
         checkContact(); // зайти на страницу для проверки
     }
+
     public void checkContact() { //посмотреть что контакт создался
         if (isElementPresent(By.id("maintable"))) {     //если мы уже на странице то никуда не переходить
             return;
@@ -109,15 +110,16 @@ public class ContactHelper extends HelperBase {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    public void delete_contact(int index) {
-        changeContact(index); //открыть окно на изменение
+
+    public void delete_contact(NewContactData1 contact) {
+        changeContactById(contact.getId()); //открыть окно на изменение
         deleteContact_1(); //удаление контакта
         checkContact(); //зайти снова на страницу контактов
     }
 
 
-    public List<NewContactData1> contactlist() {
-        List<NewContactData1> contacts = new ArrayList<NewContactData1>();
+    public Set<NewContactData1> contact_all() {
+        Set<NewContactData1> contacts = new HashSet<NewContactData1>();
 
         List<WebElement> elements = wd.findElements(By.xpath(("//tr[@name = 'entry']")));
 
@@ -132,4 +134,6 @@ public class ContactHelper extends HelperBase {
         }
         return contacts;
     }
+
+
 }

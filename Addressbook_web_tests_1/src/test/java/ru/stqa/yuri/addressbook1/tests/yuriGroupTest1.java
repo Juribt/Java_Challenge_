@@ -3,9 +3,7 @@ package ru.stqa.yuri.addressbook1.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.yuri.addressbook1.model.GroupData1;
-
-import java.util.Comparator;
-import java.util.List;
+import java.util.Set;
 
 //тест создание новой группы
 
@@ -18,20 +16,17 @@ public class yuriGroupTest1 extends TestBase {
     @Test(enabled = true)
     public void test_group_Tests1() {
         app.goTo().groupPage();
-        List<GroupData1> before = app.group().list();
+        Set<GroupData1> before = app.group().all();  //работа со множествами
         GroupData1 group = new GroupData1().withNameGroup("Yuri1_test_group");
 
         app.group().create(group);
         app.goTo().groupPage(); //зайти на страницу Группы
-        List<GroupData1> after = app.group().list();
+        Set<GroupData1> after = app.group().all();
 
         Assert.assertEquals(after.size(), before.size() + 1);
 
-
+        group.withId(after.stream().mapToInt((g)-> g.getId()).max().getAsInt()); //объекты преобразуются в числа
         before.add(group);
-        Comparator<? super GroupData1> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
-        before.sort(byId);
-        after.sort(byId);
 
         Assert.assertEquals(before, after); //сравнение списков
     }

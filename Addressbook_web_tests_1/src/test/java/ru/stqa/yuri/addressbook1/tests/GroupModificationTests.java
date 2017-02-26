@@ -6,10 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.yuri.addressbook1.model.GroupData1;
-
-import java.util.Comparator;
-import java.util.List;
-
+import java.util.Set;
 
 
 /**
@@ -21,7 +18,7 @@ public class GroupModificationTests extends TestBase {
     @BeforeMethod
     public void testPreconditions(){
         app.goTo().groupPage();
-        if (app.group().list().size() == 0) { //проверка на то что групп на странице нет
+        if (app.group().all().size() == 0) { //проверка на то что групп на странице нет
             app.group().create(new GroupData1().withNameGroup("Yuri1_test_group")); // если нет то создаём
         }
     }
@@ -31,18 +28,18 @@ public class GroupModificationTests extends TestBase {
     public void testGroupModification() {
 
 
-        List<GroupData1> before = app.group().list();
-        int index = before.size() - 1; //оптимизация переменной
-        GroupData1 group = new GroupData1().withId(before.get(index).getId()).withNameGroup("Yuri1_test_group").withHeaderGroup("Header1_group").withNameFooter("Yuri3_group");
-        app.group().modify(index, group);// модификация группы
+        Set<GroupData1> before = app.group().all();
+        GroupData1 modifiedGroup = before.iterator().next();
 
-        List<GroupData1> after = app.group().list();
+        GroupData1 group = new GroupData1().withId(modifiedGroup.getId()).withNameGroup("Yuri1_test_group").withHeaderGroup("Header1_group").withNameFooter("Yuri3_group");
+        app.group().modify(group);// модификация группы
+
+        Set<GroupData1> after = app.group().all();
         Assert.assertEquals(after.size(), before.size()); // количество групп не изменилось
-        before.remove(index); //удалить первоначальное значение группы
+
+        before.remove(modifiedGroup); //удалить первоначальное значение группы
         before.add(group); //добавить последнее изменённое значение
-        Comparator<? super GroupData1> byId = (g1,g2) -> Integer.compare(g1.getId(), g2.getId());
-        before.sort(byId);
-        after.sort(byId);
+
         Assert.assertEquals(before, after);
     }
 

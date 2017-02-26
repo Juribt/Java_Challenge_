@@ -17,6 +17,24 @@ public class GroupData1 {
         return id;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GroupData1 that = (GroupData1) o;
+
+        if (id != that.id) return false;
+        return nameGroup != null ? nameGroup.equals(that.nameGroup) : that.nameGroup == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (nameGroup != null ? nameGroup.hashCode() : 0);
+        return result;
+    }
 
     public String getNameGroup() {
         return nameGroup;
@@ -28,22 +46,6 @@ public class GroupData1 {
 
     public String getNameFooter() {
         return nameFooter;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        GroupData1 that = (GroupData1) o;
-
-        return nameGroup != null ? nameGroup.equals(that.nameGroup) : that.nameGroup == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        return nameGroup != null ? nameGroup.hashCode() : 0;
     }
 
     @Override

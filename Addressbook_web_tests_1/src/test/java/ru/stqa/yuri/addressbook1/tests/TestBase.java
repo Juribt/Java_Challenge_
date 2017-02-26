@@ -4,14 +4,14 @@ import org.openqa.selenium.remote.BrowserType;
 import org.testng.annotations.*;
 import ru.stqa.yuri.addressbook1.appmanager.ApplicationManager;
 
-import java.io.File;
+
 
 /**
  * Created by bilovyur on 25.01.2017.
  */
 public class TestBase {
 
-         public static final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
+         public static final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
 
     @BeforeSuite
     public void setUp() throws Exception {

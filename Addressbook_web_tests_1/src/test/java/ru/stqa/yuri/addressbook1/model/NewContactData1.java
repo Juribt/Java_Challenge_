@@ -7,6 +7,28 @@ public class NewContactData1 {
     private int id= Integer.MAX_VALUE;;
     private  String last_name;
     private  String first_name;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        NewContactData1 that = (NewContactData1) o;
+
+        if (id != that.id) return false;
+        if (last_name != null ? !last_name.equals(that.last_name) : that.last_name != null) return false;
+        return first_name != null ? first_name.equals(that.first_name) : that.first_name == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (last_name != null ? last_name.hashCode() : 0);
+        result = 31 * result + (first_name != null ? first_name.hashCode() : 0);
+        return result;
+    }
+
     private  String middle_name;
     private  String nick_name;
     private  String company_name;
@@ -17,10 +39,10 @@ public class NewContactData1 {
     private String group;
 
 
-
     @Override
     public String toString() {
         return "NewContactData1{" +
+
                 "id=" + id +
                 ", last_name='" + last_name + '\'' +
                 ", first_name='" + first_name + '\'' +
@@ -83,27 +105,6 @@ public class NewContactData1 {
 
     public int getId() {
         return id;
-    }
-
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        NewContactData1 that = (NewContactData1) o;
-
-        if (last_name != null ? !last_name.equals(that.last_name) : that.last_name != null) return false;
-        return first_name != null ? first_name.equals(that.first_name) : that.first_name == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = last_name != null ? last_name.hashCode() : 0;
-        result = 31 * result + (first_name != null ? first_name.hashCode() : 0);
-        return result;
     }
 
 

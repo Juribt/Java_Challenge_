@@ -4,9 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.stqa.yuri.addressbook1.model.GroupData1;
-
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by bilovyur on 30.01.2017.
@@ -35,8 +35,8 @@ public class GroupHelper extends HelperBase {
         click(By.name("delete"));
     }
 
-    public void selectGroup(int index) {
-        wd.findElements(By.name("selected[]")).get(index).click(); //выбираем элемент по индексу и кликаем его
+    public void selectGroupById(int id) {
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click(); //выбираем элемент по id и кликаем его
     }
 
     public void initGroupModification() {
@@ -62,8 +62,8 @@ public class GroupHelper extends HelperBase {
         open_page();//
     }
 
-    public void modify(int index, GroupData1 group) { //оптимизация модификации группы
-        selectGroup(index);
+    public void modify(GroupData1 group) { //оптимизация модификации группы
+        selectGroupById(group.getId());
         initGroupModification();
         fillGroupForm(group);
         submitGroupModification();
@@ -78,8 +78,11 @@ public class GroupHelper extends HelperBase {
         return wd.findElements(By.name("selected[]")).size(); //возвращает количество элементов на странице
     }
 
-    public List<GroupData1> list() {
-        List<GroupData1> groups = new ArrayList<GroupData1>();
+
+
+    public Set<GroupData1> all() { //вспомогательный метод возвращающий множество
+        Set<GroupData1> groups = new HashSet<GroupData1>();
+
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements) {
             String name = element.getText(); //получаем текст с элемента на странице
@@ -90,8 +93,9 @@ public class GroupHelper extends HelperBase {
         return groups; //возвращение списка
     }
 
-    public void delete(int index) {
-        selectGroup(index);
+
+    public void delete(GroupData1 group) {
+        selectGroupById(group.getId());  //выбрать элемент для удаления по id
         deleteSelectedGroups();
         open_page();
     }

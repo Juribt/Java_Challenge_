@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.stqa.yuri.addressbook1.model.GroupData1;
 import ru.stqa.yuri.addressbook1.model.Groups;
+
 import java.util.List;
 
 
@@ -59,6 +60,7 @@ public class GroupHelper extends HelperBase {
         createNewGroup();
         fillGroupForm(group);
         submitGroupCreation();
+        groupCache = null; // сбрасываем кэш при создании группы
         open_page();//
     }
 
@@ -67,6 +69,7 @@ public class GroupHelper extends HelperBase {
         initGroupModification();
         fillGroupForm(group);
         submitGroupModification();
+        groupCache = null; //сбрасываем кэш при модификации группы
         open_page();
     }
 
@@ -78,25 +81,30 @@ public class GroupHelper extends HelperBase {
         return wd.findElements(By.name("selected[]")).size(); //возвращает количество элементов на странице
     }
 
-
+    private Groups groupCache = null;
 
     public Groups all() { //вспомогательный метод возвращающий множество
-        Groups groups = new Groups();
+       if (groupCache!=null){
+           return new Groups(groupCache);
+       }
+
+        groupCache = new Groups();
 
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements) {
             String name = element.getText(); //получаем текст с элемента на странице
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value")); //получаем идентификатор группы
 
-            groups.add(new GroupData1().withId(id).withNameGroup(name)); //Добавить созданный объект в список c ууказанным идентификатором и указанным именем
+            groupCache.add(new GroupData1().withId(id).withNameGroup(name)); //Добавить созданный объект в список c ууказанным идентификатором и указанным именем
         }
-        return groups; //возвращение списка
+        return new Groups(groupCache); //возвращение списка
     }
 
 
     public void delete(GroupData1 group) {
         selectGroupById(group.getId());  //выбрать элемент для удаления по id
         deleteSelectedGroups();
+        groupCache = null; //сброс кэша при удалении группы
         open_page();
     }
 }

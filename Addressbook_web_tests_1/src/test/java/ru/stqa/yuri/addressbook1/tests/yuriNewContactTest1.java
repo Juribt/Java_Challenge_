@@ -15,7 +15,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class yuriNewContactTest1 extends TestBase {
 
     //тест создание нового контакта
-    @Test
+    @Test(enabled = false)
     public void test_newcontact_Tests() {
         app.contact().checkContact(); //зайти на страницу контактов
         Contacts before = app.contact().contact_all();  //работа со множествами

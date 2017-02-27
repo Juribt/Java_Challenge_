@@ -32,9 +32,9 @@ public class yuriDeleteGroupTest1 extends TestBase {
 
 
         app.group().delete(deletedGroup);
-
+        assertThat(app.group().count(), equalTo(before.size() -1));
         Groups after = app.group().all();
-        assertEquals(after.size(), before.size() - 1);  // должно убавиться на -1 группу
+    //    assertEquals(after.size(), before.size() - 1);  // должно убавиться на -1 группу
         assertThat(after, equalTo(before.without(deletedGroup)));
 
     }

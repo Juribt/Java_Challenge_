@@ -77,7 +77,7 @@ public class GroupHelper extends HelperBase {
         return isElementPresent(By.name("selected[]"));
     }
 
-    public int getGroupCount() {
+    public int count() { //возвращает количество групп на странице
         return wd.findElements(By.name("selected[]")).size(); //возвращает количество элементов на странице
     }
 

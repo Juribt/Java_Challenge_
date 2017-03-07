@@ -35,7 +35,7 @@ public class yuriGroupTest1 extends TestBase {
                 before.withAdded(group.withId(after.stream().mapToInt((g)-> g.getId()).max().getAsInt())))); //проверка множеств через Hamcrest
     }
 
-    @Test(enabled = true)
+    @Test(enabled = false)
     public void test_bad_creation_Test() {
         app.goTo().groupPage();
         Groups before = app.group().all();  //работа со множествами

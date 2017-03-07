@@ -36,6 +36,7 @@ public class NewContactData1 {
     private  String email_1;
     private  String address;
     private  String home_phone;
+    private  String work_phone;
     private String group;
 
 
@@ -97,6 +98,10 @@ public class NewContactData1 {
         this.home_phone = home_phone;
         return this;
     }
+    public NewContactData1 withWork_phone(String work_phone) {
+        this.work_phone = work_phone;
+        return this;
+    }
 
     public NewContactData1 withGroup(String group) {
         this.group = group;
@@ -140,10 +145,13 @@ public class NewContactData1 {
         return address;
     }
 
+    public String getWork_phone() {
+        return work_phone;
+    }
+
     public String getHome_phone() {
         return home_phone;
     }
-
     public String getGroup() {
         return group;
     }

@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.yuri.addressbook1.model.Contacts;
 import ru.stqa.yuri.addressbook1.model.NewContactData1;
+
 import java.util.List;
 
 
@@ -64,6 +65,20 @@ public class ContactHelper extends HelperBase {
 
     }
 
+    public void getContactwithoutCheckBoxById(int id) {
+    /* 1)  WebElement checkbox = wd.findElement(By.cssSelector(String.format("input[value='%s']", id))); //определение checkbox
+        WebElement row = checkbox.findElement(By.xpath("./../..")); //поднимаемся от элемента на 2 уровня вверх, нашли строку
+        List<WebElement> cells = row.findElements(By.tagName("td")); //получаем все ячейки в строке
+        cells.get(7).findElement(By.tagName("a")).click(); // среди ячеек берём нужную 8-й столбец, находим там тэг ссылки, после этого кликаем
+         */
+   //  2)   wd.findElement(By.xpath(String.format("input[value='%s']/../../td[8]/a", id))).click();
+       //     wd.findElement(By.xpath(String.format("//tr[.//input[value='%s']]/td[8]/a", id))).click();
+        wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
+    //       wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+    //       wd.findElement(By.cssSelector("img[alt=\"Edit\"]")).click();
+
+    }
+
     public void updateContact() {
         click(By.xpath("//div[@id='content']/form[1]/input[22]")); //submit updated contact
     }
@@ -117,6 +132,18 @@ public class ContactHelper extends HelperBase {
         checkContact(); //зайти снова на страницу контактов
     }
 
+    public NewContactData1 infoFromEditForm(NewContactData1 contact) {
+        getContactwithoutCheckBoxById(contact.getId());
+        String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+        String surname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String home = wd.findElement(By.name("home")).getAttribute("value");
+        String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+        String work = wd.findElement(By.name("work")).getAttribute("value");
+        checkContact();
+        return new NewContactData1()
+                .withId(contact.getId()).withFirst_name(firstname).withLast_name(surname).withHome_phone(home)
+                .withMobile_phone(mobile).withWork_phone(work);
+    }
 
     public Contacts contact_all() {
         Contacts contacts = new Contacts();

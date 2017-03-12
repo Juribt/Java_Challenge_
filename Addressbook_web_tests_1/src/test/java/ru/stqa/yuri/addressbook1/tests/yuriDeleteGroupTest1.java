@@ -15,7 +15,7 @@ import static org.testng.Assert.assertEquals;
 //тест удаление группы
 public class yuriDeleteGroupTest1 extends TestBase {
 
-    @BeforeMethod
+    @BeforeMethod(enabled = false)
     public void testPreconditions() {
         app.goTo().groupPage();
         if (app.group().all().size() == 0) { //проверка на то что групп на странице нет
@@ -24,7 +24,7 @@ public class yuriDeleteGroupTest1 extends TestBase {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void yuriDeletionGroupTest1() {
 
         Groups before = app.group().all();

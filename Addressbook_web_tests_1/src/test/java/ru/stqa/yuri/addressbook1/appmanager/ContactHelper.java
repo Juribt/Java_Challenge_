@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.yuri.addressbook1.model.Contacts;
 import ru.stqa.yuri.addressbook1.model.NewContactData1;
+
 import java.util.List;
 
 
@@ -26,6 +27,9 @@ public class ContactHelper extends HelperBase {
         type(By.name("firstname"), newContactData.getFirst_name());
         type(By.name("middlename"), newContactData.getMiddle_name());
         type(By.name("nickname"), newContactData.getNick_name());
+
+        attach(By.name("photo"), newContactData.getPhoto()); //кликнуть по кнопке файл
+
         type(By.name("company"), newContactData.getCompany_name());
         type(By.name("mobile"), newContactData.getMobile_phone());
         type(By.name("email"), newContactData.getEmail_1());

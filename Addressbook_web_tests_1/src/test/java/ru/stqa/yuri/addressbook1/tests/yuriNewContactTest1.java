@@ -15,13 +15,24 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class yuriNewContactTest1 extends TestBase {
 
     //тест создание нового контакта
-    @Test(enabled = false)
+    @Test(enabled = true)
     public void test_newcontact_Tests() {
         app.contact().checkContact(); //зайти на страницу контактов
+
         Contacts before = app.contact().contact_all();  //работа со множествами
 
         NewContactData1 contact = new NewContactData1()
-                .withLast_name("Testovich5").withFirst_name("Test").withMiddle_name("Testyi").withNick_name("Testik").withCompany_name("Test_High_Technologies").withMobile_phone("89526656583").withEmail_1("john_swift@yahoo.com").withAddress("England, Solsbery, Flint str, h 7, fl. 8").withHome_phone("6402780").withGroup("Yuri1_test_group");
+                .withLast_name("Testovich5")
+                .withFirst_name("Test")
+                .withMiddle_name("Testyi")
+                .withNick_name("Testik")
+                .withCompany_name("Test_High_Technologies")
+                .withMobile_phone("89526656583")
+                .withEmail_1("john_swift@yahoo.com")
+                .withAddress("England, Solsbery, Flint str, h 7, fl. 8")
+                .withHome_phone("6402780")
+                .withGroup("Yuri1_test_group");
+   //             .withPhoto(null);
 
         app.contact().create_contact(contact);
         Contacts after = app.contact().contact_all(); //список контактов после

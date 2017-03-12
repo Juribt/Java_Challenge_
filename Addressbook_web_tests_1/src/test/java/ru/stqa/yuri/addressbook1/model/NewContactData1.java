@@ -1,5 +1,7 @@
 package ru.stqa.yuri.addressbook1.model;
 
+import java.io.File;
+
 /**
  * Created by bilovyur on 25.01.2017.
  */
@@ -37,7 +39,16 @@ public class NewContactData1 {
     private  String address;
     private  String home_phone;
     private String group;
+    private File photo;
 
+    public File getPhoto() {
+        return photo;
+    }
+
+    public NewContactData1 withPhoto(File photo) {
+        this.photo = photo;
+        return this;
+    }
 
     @Override
     public String toString() {

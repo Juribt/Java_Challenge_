@@ -8,8 +8,8 @@ import ru.stqa.yuri.addressbook1.model.NewContactData1;
 
 
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+//import static org.hamcrest.CoreMatchers.equalTo;
+//import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertEquals;
 
 /**
@@ -18,7 +18,7 @@ import static org.testng.Assert.assertEquals;
 //изменение контактов
 public class ContactModificationTests extends TestBase {
 
-    @BeforeMethod(enabled = false)
+    @BeforeMethod(enabled = true)
     public void testContactPreconditions() {  //проверка предусловий контактов
         app.goTo().checkNewContact(); //открыть страницу контактов
         if (app.contact().contact_all().size() == 0) { //проверка на то что контактов на странице нет
@@ -28,7 +28,7 @@ public class ContactModificationTests extends TestBase {
 
     }
 
-    @Test(enabled = false)
+    @Test(enabled = true)
     public void testContactModification() {
         Contacts before = app.contact().contact_all();
         NewContactData1 modifiedContact = before.iterator().next();

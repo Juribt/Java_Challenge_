@@ -1,5 +1,6 @@
 package ru.stqa.yuri.addressbook1.tests;
 
+import com.thoughtworks.xstream.XStream;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.yuri.addressbook1.model.GroupData1;
@@ -9,6 +10,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -22,18 +24,24 @@ public class yuriGroupTestFile11 extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> validGroups() throws IOException {
-        List<Object[]> list = new ArrayList<Object[]>();
+    //    List<Object[]> list = new ArrayList<Object[]>();
         //   list.add(new Object[]{new GroupData1().withNameGroup("test1").withHeaderGroup("header 1").withNameFooter("footer 1")}); //массив из одного объекта типа GroupData1
         //   list.add(new Object[]{new GroupData1().withNameGroup("test2").withHeaderGroup("header 2").withNameFooter("footer 2")});
         //   list.add(new Object[]{new GroupData1().withNameGroup("test3").withHeaderGroup("header 3").withNameFooter("footer 3")});
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.csv"))); //может возникать исключение
+        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.xml"))); //может возникать исключение
+        String xml="";
         String line = reader.readLine(); // считывание по строке
-        while (line != null) {
-            String[] split = line.split(":");
-            list.add(new Object[]{new GroupData1().withNameGroup(split[0]).withHeaderGroup(split[1]).withNameFooter(split[2])}); //получаем данные по группе из файла
+        while (line != null) {  // читаем данные строка за строкой
+            xml += line;
+    //        String[] split = line.split(":");
+      //      list.add(new Object[]{new GroupData1().withNameGroup(split[0]).withHeaderGroup(split[1]).withNameFooter(split[2])}); //получаем данные по группе из файла
             line = reader.readLine(); //считаем следующую строку
         }
-        return list.iterator();
+        XStream xstream = new XStream();
+        xstream.processAnnotations(GroupData1.class); //указать процесс обработки аннотаций
+        List<GroupData1> groups = (List<GroupData1>) xstream.fromXML(xml); //преобразование данных из xml
+        return groups.stream().map((g) -> new Object [] {g}).collect(Collectors.toList()).iterator(); //выдаём данные
+
     }
 
     @Test(dataProvider = "validGroups") //цикл устраивает фреймворк TestNG

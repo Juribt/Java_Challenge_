@@ -1,11 +1,15 @@
 package ru.stqa.yuri.addressbook1.model;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import ru.stqa.yuri.addressbook1.tests.TestBase;
 
 /**
  * Created by bilovyur on 25.01.2017.
  */
+@XStreamAlias("group")
 public class GroupData1 {
+    @XStreamOmitField
     private int id = Integer.MAX_VALUE;
     private String nameGroup;
     private String headerGroup;

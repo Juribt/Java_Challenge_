@@ -3,6 +3,7 @@ package ru.stqa.yuri.addressbook1.generators;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import com.thoughtworks.xstream.XStream;
 import ru.stqa.yuri.addressbook1.model.GroupData1;
 
 import java.io.File;
@@ -23,6 +24,9 @@ public class GroupDataGenerator {
     @Parameter(names= "-f", description ="Target file")//описание опции файла
     public String file;
 
+    @Parameter(names= "-d", description ="Data format")//описание опции файла
+    public String format;
+
     public static void main (String[] args) throws IOException {
         GroupDataGenerator generator = new  GroupDataGenerator();
      //   new JCommander(generator, args);
@@ -42,12 +46,28 @@ try {
   //      save(groups, file);
     }
 
-    private void run() throws IOException {
+    private void run() throws IOException {               //анализ форматов
         List<GroupData1> groups = generateGroups(count);
-        save(groups, new File(file));
+        if(format.equals("csv")){
+           saveAsCsv(groups, new File(file));
+        }else if (format.equals("xml")){
+            saveAsXML(groups, new File(file));
+        }else{
+            System.out.println("Unrecognized format " + format);
+        }
+
     }
 
-    private  void save(List<GroupData1> groups, File file) throws IOException { //запись в файл
+    private void saveAsXML(List<GroupData1> groups, File file) throws IOException { // переформатировать данные в xml
+        XStream xstream = new XStream ();
+       xstream.processAnnotations(GroupData1.class); //прочитать подсказки для класса
+        String xml = xstream.toXML(groups);
+        Writer writer = new FileWriter(file);
+        writer.write(xml);
+        writer.close();
+    }
+
+    private  void  saveAsCsv(List<GroupData1> groups, File file) throws IOException { //запись в файл
         System.out.println( new File (".").getAbsolutePath()); //посмотреть какая рабочая директория для save
         Writer writer = new FileWriter(file);
         for (GroupData1 group : groups){
@@ -61,8 +81,8 @@ try {
         List<GroupData1> groups = new ArrayList<GroupData1>();
         for (int i=0; i < count ; i++){
             groups.add(new GroupData1().withNameGroup(String.format("test %s", i))
-                    .withHeaderGroup(String.format("header %s", i))
-                    .withNameFooter(String.format("footer %s", i)));
+                    .withHeaderGroup(String.format("header\n %s", i))
+                    .withNameFooter(String.format("footer\n %s", i)));
         }
         return groups;
     }

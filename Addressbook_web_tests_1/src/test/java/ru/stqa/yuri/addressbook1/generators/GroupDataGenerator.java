@@ -31,7 +31,7 @@ public class GroupDataGenerator {
 
     public static void main (String[] args) throws IOException {
         GroupDataGenerator generator = new  GroupDataGenerator();
-     //   new JCommander(generator, args);
+    
         JCommander jCommander = new JCommander(generator);
 try {
     jCommander.parse(args); // распарсить запуск
@@ -41,11 +41,7 @@ try {
 }
         generator.run();
 
-//int count = Integer.parseInt(args[0]); //считать первую переменную со строки число групп
-  //      File file = new File (args[1]); // путь к файлу
 
-//List<GroupData1> groups = generateGroups(count);
-  //      save(groups, file);
     }
 
     private void run() throws IOException {               //анализ форматов

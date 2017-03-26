@@ -1,14 +1,40 @@
 package ru.stqa.yuri.addressbook1.model;
 
+import com.google.gson.annotations.Expose;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import java.io.File;
 
 /**
  * Created by bilovyur on 25.01.2017.
  */
+@XStreamAlias("contact")
 public class NewContactData1 {
-    private int id= Integer.MAX_VALUE;;
+    @XStreamOmitField
+    private int id= Integer.MAX_VALUE; //не показывать id так как он одинаковый
+    @Expose
     private  String last_name;
+    @Expose
     private  String first_name;
+    @Expose
+    private  String middle_name;
+    @Expose
+    private  String nick_name;
+    @Expose
+    private  String company_name;
+    @Expose
+    private  String mobile_phone;
+    @Expose
+    private  String email_1;
+    @Expose
+    private  String address;
+    @Expose
+    private  String home_phone;
+    private  String work_phone;
+    private String group;
+    private File photo;
+
 
     @Override
     public boolean equals(Object o) {
@@ -31,16 +57,7 @@ public class NewContactData1 {
         return result;
     }
 
-    private  String middle_name;
-    private  String nick_name;
-    private  String company_name;
-    private  String mobile_phone;
-    private  String email_1;
-    private  String address;
-    private  String home_phone;
-    private  String work_phone;
-    private String group;
-    private File photo;
+
 
     public File getPhoto() {
         return photo;

@@ -1,0 +1,35 @@
+<list>
+  <contact>
+    <last__name>New_Test 0</last__name>
+    <first__name>TestHelloo 0</first__name>
+    <middle__name>TestTest 0</middle__name>
+    <nick__name>Test_data_test</nick__name>
+    <company__name>Test_High_Technologies</company__name>
+    <mobile__phone>89526656583</mobile__phone>
+    <email__1>john_swift@yahoo.com</email__1>
+    <address>England, Solsbery, Flint str, h 7, fl. 8</address>
+    <home__phone>6402780</home__phone>
+  </contact>
+  <contact>
+    <last__name>New_Test 1</last__name>
+    <first__name>TestHelloo 1</first__name>
+    <middle__name>TestTest 1</middle__name>
+    <nick__name>Test_data_test</nick__name>
+    <company__name>Test_High_Technologies</company__name>
+    <mobile__phone>89526656583</mobile__phone>
+    <email__1>john_swift@yahoo.com</email__1>
+    <address>England, Solsbery, Flint str, h 7, fl. 8</address>
+    <home__phone>6402780</home__phone>
+  </contact>
+  <contact>
+    <last__name>New_Test 2</last__name>
+    <first__name>TestHelloo 2</first__name>
+    <middle__name>TestTest 2</middle__name>
+    <nick__name>Test_data_test</nick__name>
+    <company__name>Test_High_Technologies</company__name>
+    <mobile__phone>89526656583</mobile__phone>
+    <email__1>john_swift@yahoo.com</email__1>
+    <address>England, Solsbery, Flint str, h 7, fl. 8</address>
+    <home__phone>6402780</home__phone>
+  </contact>
+</list>

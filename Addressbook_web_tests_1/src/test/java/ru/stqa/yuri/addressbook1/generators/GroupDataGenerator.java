@@ -3,6 +3,8 @@ package ru.stqa.yuri.addressbook1.generators;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
 import ru.stqa.yuri.addressbook1.model.GroupData1;
 
@@ -52,10 +54,20 @@ try {
            saveAsCsv(groups, new File(file));
         }else if (format.equals("xml")){
             saveAsXML(groups, new File(file));
+        }else if (format.equals("json")){
+            saveAsJson(groups, new File(file));
         }else{
             System.out.println("Unrecognized format " + format);
         }
 
+    }
+
+    private void saveAsJson(List<GroupData1> groups, File file) throws IOException {
+        Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(groups);
+        Writer writer = new FileWriter(file); //запись в файл
+        writer.write(json);
+        writer.close();
     }
 
     private void saveAsXML(List<GroupData1> groups, File file) throws IOException { // переформатировать данные в xml

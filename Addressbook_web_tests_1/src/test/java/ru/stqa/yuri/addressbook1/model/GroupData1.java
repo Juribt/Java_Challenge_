@@ -1,5 +1,6 @@
 package ru.stqa.yuri.addressbook1.model;
 
+import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import ru.stqa.yuri.addressbook1.tests.TestBase;
@@ -11,8 +12,11 @@ import ru.stqa.yuri.addressbook1.tests.TestBase;
 public class GroupData1 {
     @XStreamOmitField
     private int id = Integer.MAX_VALUE;
+    @Expose
     private String nameGroup;
+    @Expose
     private String headerGroup;
+    @Expose
     private String nameFooter;
 
 

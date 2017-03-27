@@ -58,30 +58,33 @@ public class ContactDataGenerator {
     private void saveAsJson(List<NewContactData1> contacts, File file) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(contacts);
-        Writer writer = new FileWriter(file); //запись в файл
-        writer.write(json);
-        writer.close();
+       try( Writer writer = new FileWriter(file)){ //автоматическое закрытие файла
+           writer.write(json);
+       }
+
     }
 
     private void saveAsXML(List<NewContactData1>contacts, File file) throws IOException { // переформатировать данные в xml
         XStream xstream = new XStream ();
         xstream.processAnnotations(NewContactData1.class); //прочитать подсказки для класса
         String xml = xstream.toXML(contacts);
-        Writer writer = new FileWriter(file);
-        writer.write(xml);
-        writer.close();
+       try( Writer writer = new FileWriter(file)){ //автоматическое закрытие файла
+           writer.write(xml);
+       }
+
     }
 
     private  void  saveAsCsv(List<NewContactData1> contacts, File file) throws IOException { //запись в файл
         System.out.println( new File (".").getAbsolutePath()); //посмотреть какая рабочая директория для save
-        Writer writer = new FileWriter(file);
-        for (NewContactData1 contact : contacts){
-            writer.write(String.format("%s:%s:%s:%s:%s:%s:%s:%s:%s\n", contact.getLast_name(),
-                    contact.getFirst_name(), contact.getMiddle_name(),
-                    contact.getNick_name(), contact.getCompany_name(),contact.getMobile_phone(),
-                    contact.getEmail_1(), contact.getAddress(), contact.getHome_phone()));
+        try(Writer writer = new FileWriter(file)){
+            for (NewContactData1 contact : contacts){
+                writer.write(String.format("%s:%s:%s:%s:%s:%s:%s:%s:%s\n", contact.getLast_name(),
+                        contact.getFirst_name(), contact.getMiddle_name(),
+                        contact.getNick_name(), contact.getCompany_name(),contact.getMobile_phone(),
+                        contact.getEmail_1(), contact.getAddress(), contact.getHome_phone()));
+            }
         }
-        writer.close();
+
     }
 
     private  List<NewContactData1> generateContacts(int count) { //реализация генератора данных групп

@@ -28,41 +28,45 @@ public class newContactTestFile1 extends TestBase {
     @DataProvider
     public Iterator<Object[]> validContactsFromXML() throws IOException {
 
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml"))); //может возникать исключение
-        String xml="";
-        String line = reader.readLine(); // считывание по строке
-        while (line != null) {  // читаем данные строка за строкой
-            xml += line;   //считываем данные по контактам
+        try(BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")))){
+            String xml="";
+            String line = reader.readLine(); // считывание по строке
+            while (line != null) {  // читаем данные строка за строкой
+                xml += line;   //считываем данные по контактам
 
-            line = reader.readLine(); //считаем следующую строку
-        }
-        XStream xstream = new XStream();
-        xstream.processAnnotations(NewContactData1.class); //указать процесс обработки аннотаций
-        List<NewContactData1> contacts = (List<NewContactData1>) xstream.fromXML(xml); //преобразование данных из xml
-        return contacts.stream().map((g) -> new Object [] {g}).collect(Collectors.toList()).iterator(); //выдаём данные
+                line = reader.readLine(); //считаем следующую строку
+            }
+            XStream xstream = new XStream();
+            xstream.processAnnotations(NewContactData1.class); //указать процесс обработки аннотаций
+            List<NewContactData1> contacts = (List<NewContactData1>) xstream.fromXML(xml); //преобразование данных из xml
+            return contacts.stream().map((g) -> new Object [] {g}).collect(Collectors.toList()).iterator(); //выдаём данные
+
+        } ////Reader не надо закрывать он сам закроется
 
     }
 
     @DataProvider
     public Iterator<Object[]> validContactsFromJson() throws IOException {
 
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json"))); //может возникать исключение
-        String json="";
-        String line = reader.readLine(); // считывание по строке
-        while (line != null) {  // читаем данные строка за строкой
-            json += line;
-            line = reader.readLine(); //считаем следующую строку
-        }
-        Gson gson = new Gson();
-        List<NewContactData1> contacts =   gson.fromJson(json,new TypeToken<List<NewContactData1>>(){}.getType());//List<GroupData1>.class - десериализация объекта
+        try(BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")))){
+            String json="";
+            String line = reader.readLine(); // считывание по строке
+            while (line != null) {  // читаем данные строка за строкой
+                json += line;
+                line = reader.readLine(); //считаем следующую строку
+            }
+            Gson gson = new Gson();
+            List<NewContactData1> contacts =   gson.fromJson(json,new TypeToken<List<NewContactData1>>(){}.getType());//List<GroupData1>.class - десериализация объекта
 
 
-        return contacts.stream().map((g) -> new Object [] {g}).collect(Collectors.toList()).iterator(); //выдаём данные, заворачиваем объект в массив
+            return contacts.stream().map((g) -> new Object [] {g}).collect(Collectors.toList()).iterator(); //выдаём данные, заворачиваем объект в массив
+
+        } //Reader не надо закрывать он сам закроется
 
     }
 
 
-    @Test(dataProvider = "validContactsFromXML") //цикл устраивает фреймворк TestNG
+    @Test(dataProvider = "validContactsFromJson") //цикл устраивает фреймворк TestNG
     public void test_contact_Tests_file1(NewContactData1 contact) {
 
         app.contact().checkContact();

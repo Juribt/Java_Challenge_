@@ -90,12 +90,12 @@ public class ContactDataGenerator {
             contacts.add(new NewContactData1().withLast_name(String.format("New_Test %s", i))
                     .withFirst_name(String.format("TestHelloo %s", i))
                     .withMiddle_name(String.format("TestTest %s", i))
-                    .withNick_name("Test_data_test")
-                    .withCompany_name("Test_High_Technologies")
-                    .withMobile_phone("89526656583")
+                  .withNick_name("Test_data_test")
+                   .withCompany_name("Test_High_Technologies")
+                   .withMobile_phone("89526656583")
                     .withEmail_1("john_swift@yahoo.com")
-                    .withAddress("England, Solsbery, Flint str, h 7, fl. 8")
-                    .withHome_phone("6402780")
+                   .withAddress("England, Solsbery, Flint str, h 7, fl. 8")
+                   .withHome_phone("6402780")
             );
         }
         return contacts;

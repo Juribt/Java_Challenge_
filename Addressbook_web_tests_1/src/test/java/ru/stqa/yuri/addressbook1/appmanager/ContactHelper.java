@@ -49,6 +49,21 @@ public class ContactHelper extends HelperBase {
 
     }
 
+    public void fillNewContactForm_file(NewContactData1 newContactData, boolean creation) { //заполнение формы нового контакта
+        type(By.name("lastname"), newContactData.getLast_name());
+        type(By.name("firstname"), newContactData.getFirst_name());
+        type(By.name("middlename"), newContactData.getMiddle_name());
+        type(By.name("nickname"), newContactData.getNick_name());
+
+        type(By.name("company"), newContactData.getCompany_name());
+        type(By.name("mobile"), newContactData.getMobile_phone());
+        type(By.name("email"), newContactData.getEmail_1());
+        type(By.name("address"), newContactData.getAddress());
+        type(By.name("home"), newContactData.getHome_phone());
+
+           }
+
+
     public void submitNewContact() {
         click(By.xpath("//div[@id='content']/form/input[21]"));
     }
@@ -74,11 +89,11 @@ public class ContactHelper extends HelperBase {
         List<WebElement> cells = row.findElements(By.tagName("td")); //получаем все ячейки в строке
         cells.get(7).findElement(By.tagName("a")).click(); // среди ячеек берём нужную 8-й столбец, находим там тэг ссылки, после этого кликаем
          */
-   //  2)   wd.findElement(By.xpath(String.format("input[value='%s']/../../td[8]/a", id))).click();
-       //     wd.findElement(By.xpath(String.format("//tr[.//input[value='%s']]/td[8]/a", id))).click();
+        //  2)   wd.findElement(By.xpath(String.format("input[value='%s']/../../td[8]/a", id))).click();
+        //     wd.findElement(By.xpath(String.format("//tr[.//input[value='%s']]/td[8]/a", id))).click();
         wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
-    //       wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
-    //       wd.findElement(By.cssSelector("img[alt=\"Edit\"]")).click();
+        //       wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+        //       wd.findElement(By.cssSelector("img[alt=\"Edit\"]")).click();
 
     }
 
@@ -110,9 +125,17 @@ public class ContactHelper extends HelperBase {
         checkContact();
     }
 
+    public void create_contact_file(NewContactData1 contact) { //создание контакта
+        createNewContact();
+        fillNewContactForm_file(contact, true); ////////////////////проблемная секция
+        submitNewContact();
+        checkContact();
+    }
+
+
     public void modifyContact(NewContactData1 contact) { //изменение контакта
         modifyById(contact.getId());
-        fillNewContactForm(contact, false);
+        fillNewContactForm(contact, true);
         updateContact(); //submit updated contact
         checkContact(); // зайти на страницу для проверки
     }

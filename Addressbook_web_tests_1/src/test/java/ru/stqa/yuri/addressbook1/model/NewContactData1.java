@@ -31,8 +31,11 @@ public class NewContactData1 {
     private  String address;
     @Expose
     private  String home_phone;
+    @XStreamOmitField
     private  String work_phone;
+    @XStreamOmitField
     private String group;
+    @XStreamOmitField
     private File photo;
 
 

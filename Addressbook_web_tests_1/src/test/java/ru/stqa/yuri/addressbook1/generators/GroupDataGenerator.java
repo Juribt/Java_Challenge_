@@ -31,7 +31,7 @@ public class GroupDataGenerator {
 
     public static void main (String[] args) throws IOException {
         GroupDataGenerator generator = new  GroupDataGenerator();
-    
+
         JCommander jCommander = new JCommander(generator);
 try {
     jCommander.parse(args); // распарсить запуск

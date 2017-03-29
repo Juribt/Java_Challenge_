@@ -19,7 +19,7 @@ import static org.testng.Assert.assertEquals;
 //тест на изменение группы
 public class GroupModificationTests extends TestBase {
 
-    @BeforeMethod(enabled = false)
+    @BeforeMethod(enabled = true)
     public void testPreconditions(){
         app.goTo().groupPage();
         if (app.group().all().size() == 0) { //проверка на то что групп на странице нет
@@ -28,7 +28,7 @@ public class GroupModificationTests extends TestBase {
     }
 
 
-    @Test(enabled = false)
+    @Test(enabled = true)
     public void testGroupModification() {
 
 

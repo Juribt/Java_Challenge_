@@ -6,12 +6,18 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Created by bilovyur on 29.01.2017.
  */
 public class ApplicationManager {
+    private final Properties properties;
     WebDriver wd;
 
     private ContactHelper contactHelper;
@@ -22,10 +28,16 @@ public class ApplicationManager {
 
     public ApplicationManager(String browser) {
         this.browser = browser;
+
+    //    String target = System.getProperty("target", "local"); //часть имени конфигурационного файла
+        properties = new Properties();
+    //    properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
     }
 
 
-    public void init() {
+    public void init() throws IOException {
+        String target = System.getProperty("target", "local"); //часть имени конфигурационного файла
+        properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
 
         if (browser.equals(BrowserType.FIREFOX)) {
             wd = new FirefoxDriver();
@@ -38,12 +50,14 @@ public class ApplicationManager {
 
         wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         wd.manage().window().maximize(); //раскрыть окно
-        wd.get("http://localhost:8081/addressbook");
+        //wd.get("http://localhost:8081/addressbook");
+        wd.get(properties.getProperty("web.baseUrl"));//"http://localhost:8081/addressbook");
         groupHelper = new GroupHelper(wd);
         navigationHelper = new NavigationHelper(wd);
         sessionHelper = new SessionHelper(wd);
         contactHelper = new ContactHelper(wd);
-        sessionHelper.login("admin", "secret"); //залогиниться в приложение
+       // sessionHelper.login("admin", "secret"); //залогиниться в приложение
+        sessionHelper.login(properties.getProperty("web.adminLogin"),properties.getProperty("web.adminPassword"));//"admin", "secret"); //залогиниться в приложение
     }
 
 

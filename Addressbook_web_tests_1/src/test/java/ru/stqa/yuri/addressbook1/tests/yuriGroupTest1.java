@@ -1,6 +1,8 @@
 package ru.stqa.yuri.addressbook1.tests;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 import ru.stqa.yuri.addressbook1.model.GroupData1;
 import ru.stqa.yuri.addressbook1.model.Groups;
@@ -19,8 +21,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class yuriGroupTest1 extends TestBase {
 
 
+
     @Test(enabled = true)
     public void test_group_Tests1() {
+     //   logger.warn("Start test GroupCreation");
         app.goTo().groupPage();
         Groups before = app.group().all();  //работа со множествами
         GroupData1 group = new GroupData1().withNameGroup("Yuri1_test_group");
@@ -33,6 +37,7 @@ public class yuriGroupTest1 extends TestBase {
 
         assertThat(after, equalTo(
                 before.withAdded(group.withId(after.stream().mapToInt((g)-> g.getId()).max().getAsInt())))); //проверка множеств через Hamcrest
+     //   logger.info("Stop test GroupCreation");
     }
 
     @Test(enabled = false)

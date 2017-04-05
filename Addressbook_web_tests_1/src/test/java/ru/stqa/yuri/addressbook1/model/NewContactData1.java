@@ -3,39 +3,62 @@ package ru.stqa.yuri.addressbook1.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 
 /**
  * Created by bilovyur on 25.01.2017.
  */
 @XStreamAlias("contact")
+@Entity
+@Table(name = "addressbook")
 public class NewContactData1 {
     @XStreamOmitField
+    @Id
+    @Column(name = "id")
     private int id= Integer.MAX_VALUE; //не показывать id так как он одинаковый
     @Expose
+    @Column(name = "lastname")
     private  String last_name;
     @Expose
+    @Column(name = "firstname")
     private  String first_name;
+
     @Expose
+    @Column(name = "middlename")
     private  String middle_name;
     @Expose
+    @Column(name = "nickname")
     private  String nick_name;
     @Expose
+    @Column(name = "company")
     private  String company_name;
     @Expose
+    @Column(name = "mobile")
+    @Type(type="text")
     private  String mobile_phone;
     @Expose
+    @Column(name = "email")
+    @Type(type="text")
     private  String email_1;
     @Expose
+    @Column(name = "address")
+    @Type(type="text")
     private  String address;
     @Expose
+    @Column(name = "home")
+    @Type(type="text")
     private  String home_phone;
     @XStreamOmitField
+    @Transient
     private  String work_phone;
     @XStreamOmitField
+    @Transient
     private String group;
     @XStreamOmitField
+    @Transient
     private File photo;
 
 

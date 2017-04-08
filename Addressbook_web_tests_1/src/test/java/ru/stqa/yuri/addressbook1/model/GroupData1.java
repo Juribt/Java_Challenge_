@@ -50,7 +50,9 @@ public class GroupData1 {
         GroupData1 that = (GroupData1) o;
 
         if (id != that.id) return false;
-        return nameGroup != null ? nameGroup.equals(that.nameGroup) : that.nameGroup == null;
+        if (nameGroup != null ? !nameGroup.equals(that.nameGroup) : that.nameGroup != null) return false;
+        if (headerGroup != null ? !headerGroup.equals(that.headerGroup) : that.headerGroup != null) return false;
+        return nameFooter != null ? nameFooter.equals(that.nameFooter) : that.nameFooter == null;
 
     }
 
@@ -58,6 +60,8 @@ public class GroupData1 {
     public int hashCode() {
         int result = id;
         result = 31 * result + (nameGroup != null ? nameGroup.hashCode() : 0);
+        result = 31 * result + (headerGroup != null ? headerGroup.hashCode() : 0);
+        result = 31 * result + (nameFooter != null ? nameFooter.hashCode() : 0);
         return result;
     }
 

@@ -36,7 +36,7 @@
 
         <!-- Names the annotated entity class -->
         <mapping class="ru.stqa.yuri.addressbook1.model.GroupData1"/>
-
+        <mapping class="ru.stqa.yuri.addressbook1.model.NewContactData1"/>
     </session-factory>
 
 </hibernate-configuration>

@@ -19,8 +19,8 @@ public class yuriNewContactTest1 extends TestBase {
     public void test_newcontact_Tests() {
         app.contact().checkContact(); //зайти на страницу контактов
 
-        Contacts before = app.contact().contact_all();  //работа со множествами
-
+        Contacts before = app.db().contacts();  //работа со множествами
+  //     Contacts before = app.contact().contact_all();
         NewContactData1 contact = new NewContactData1()
                 .withLast_name("Testovich5")
                 .withFirst_name("Test")
@@ -32,10 +32,10 @@ public class yuriNewContactTest1 extends TestBase {
                 .withAddress("England, Solsbery, Flint str, h 7, fl. 8")
                 .withHome_phone("6402780")
                 .withGroup("Yuri1_test_group");
-   //             .withPhoto(null);
+
 
         app.contact().create_contact(contact);
-        Contacts after = app.contact().contact_all(); //список контактов после
+        Contacts after = app.db().contacts();//список контактов после
 
         assertThat(after.size(), equalTo(before.size() + 1));
 

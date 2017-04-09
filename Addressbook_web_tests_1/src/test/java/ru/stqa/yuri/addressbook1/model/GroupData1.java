@@ -28,8 +28,8 @@ public class GroupData1 {
     @Column(name = "group_name")
     private String nameGroup;
     @Expose
-    @Column(name = "group_header")
-    @Type(type="text")
+   @Column(name = "group_header")
+   @Type(type="text")
     private String headerGroup;
     @Expose
     @Column(name = "group_footer")
@@ -40,29 +40,7 @@ public class GroupData1 {
     public int getId() {
 
         return id;
-    }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        GroupData1 that = (GroupData1) o;
-
-        if (id != that.id) return false;
-        if (nameGroup != null ? !nameGroup.equals(that.nameGroup) : that.nameGroup != null) return false;
-        if (headerGroup != null ? !headerGroup.equals(that.headerGroup) : that.headerGroup != null) return false;
-        return nameFooter != null ? nameFooter.equals(that.nameFooter) : that.nameFooter == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (nameGroup != null ? nameGroup.hashCode() : 0);
-        result = 31 * result + (headerGroup != null ? headerGroup.hashCode() : 0);
-        result = 31 * result + (nameFooter != null ? nameFooter.hashCode() : 0);
-        return result;
     }
 
     public String getNameGroup() {
@@ -80,9 +58,28 @@ public class GroupData1 {
     @Override
     public String toString() {
         return "GroupData1{" +
-                "nameGroup='" + nameGroup + '\'' +
-                ", id='" + id + '\'' +
+                "id=" + id +
+                ", nameGroup='" + nameGroup + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GroupData1 that = (GroupData1) o;
+
+        if (id != that.id) return false;
+        return nameGroup != null ? nameGroup.equals(that.nameGroup) : that.nameGroup == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (nameGroup != null ? nameGroup.hashCode() : 0);
+        return result;
     }
 
     public GroupData1 withId(int id) {

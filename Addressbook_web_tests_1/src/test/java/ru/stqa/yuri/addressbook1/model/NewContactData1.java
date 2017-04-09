@@ -51,16 +51,6 @@ public class NewContactData1 {
     @Column(name = "home")
     @Type(type="text")
     private  String home_phone;
-    @XStreamOmitField
-    @Transient
-    private  String work_phone;
-    @XStreamOmitField
-    @Transient
-    private String group;
-    @XStreamOmitField
-    @Transient
-    private File photo;
-
 
     @Override
     public boolean equals(Object o) {
@@ -71,7 +61,11 @@ public class NewContactData1 {
 
         if (id != that.id) return false;
         if (last_name != null ? !last_name.equals(that.last_name) : that.last_name != null) return false;
-        return first_name != null ? first_name.equals(that.first_name) : that.first_name == null;
+        if (first_name != null ? !first_name.equals(that.first_name) : that.first_name != null) return false;
+        if (middle_name != null ? !middle_name.equals(that.middle_name) : that.middle_name != null) return false;
+        if (nick_name != null ? !nick_name.equals(that.nick_name) : that.nick_name != null) return false;
+        if (company_name != null ? !company_name.equals(that.company_name) : that.company_name != null) return false;
+        return mobile_phone != null ? mobile_phone.equals(that.mobile_phone) : that.mobile_phone == null;
 
     }
 
@@ -80,9 +74,22 @@ public class NewContactData1 {
         int result = id;
         result = 31 * result + (last_name != null ? last_name.hashCode() : 0);
         result = 31 * result + (first_name != null ? first_name.hashCode() : 0);
+        result = 31 * result + (middle_name != null ? middle_name.hashCode() : 0);
+        result = 31 * result + (nick_name != null ? nick_name.hashCode() : 0);
+        result = 31 * result + (company_name != null ? company_name.hashCode() : 0);
+        result = 31 * result + (mobile_phone != null ? mobile_phone.hashCode() : 0);
         return result;
     }
 
+    @XStreamOmitField
+    @Transient
+    private  String work_phone;
+    @XStreamOmitField
+    @Transient
+    private String group;
+    @XStreamOmitField
+    @Transient
+    private File photo;
 
 
     public File getPhoto() {

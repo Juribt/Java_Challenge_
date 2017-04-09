@@ -5,8 +5,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import ru.stqa.yuri.addressbook1.model.Contacts;
 import ru.stqa.yuri.addressbook1.model.GroupData1;
 import ru.stqa.yuri.addressbook1.model.Groups;
+import ru.stqa.yuri.addressbook1.model.NewContactData1;
 
 import java.util.List;
 
@@ -31,11 +33,21 @@ public class DbHelper {
         Session session= sessionFactory.openSession();
         session.beginTransaction();
         List<GroupData1> result = session.createQuery( "from GroupData1" ).list();
-    //    for ( GroupData1 group : result ) {
-       //     System.out.println( group );
-    //    }
+        //    for ( GroupData1 group : result ) {
+        //     System.out.println( group );
+        //    }
         session.getTransaction().commit();
         session.close();
         return new Groups(result);
+    }
+
+    public Contacts contacts(){
+        Session session= sessionFactory.openSession();
+        session.beginTransaction();
+        List<NewContactData1> result = session.createQuery( "from NewContactData1 where deprecated = '0000-00-00'" ).list();
+
+        session.getTransaction().commit();
+        session.close();
+        return new Contacts(result);
     }
 }

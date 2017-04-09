@@ -26,18 +26,20 @@ public class yuriGroupTest1 extends TestBase {
     public void test_group_Tests1() {
      //   logger.warn("Start test GroupCreation");
         app.goTo().groupPage();
-        Groups before = app.group().all();  //работа со множествами
+     //   Groups before = app.group().all();  //работа со множествами
+        Groups before = app.db().groups();  //загрузить данные из базы
         GroupData1 group = new GroupData1().withNameGroup("Yuri1_test_group");
 
         app.group().create(group);
         app.goTo().groupPage(); //зайти на страницу Группы
         assertThat(app.group().count(), equalTo(before.size() + 1));//проверка ставится перед after для увеличения скорости проверки
-        Groups after = app.group().all();
+     //   Groups after = app.group().all();
+        Groups after =  app.db().groups();
 
+       assertThat(after, equalTo(
+               before.withAdded(group.withId(after.stream().mapToInt((g)-> g.getId()).max().getAsInt())))); //проверка множеств через Hamcrest
 
-        assertThat(after, equalTo(
-                before.withAdded(group.withId(after.stream().mapToInt((g)-> g.getId()).max().getAsInt())))); //проверка множеств через Hamcrest
-     //   logger.info("Stop test GroupCreation");
+        //   logger.info("Stop test GroupCreation");
     }
 
     @Test(enabled = false)

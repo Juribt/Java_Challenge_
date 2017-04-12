@@ -37,15 +37,18 @@ public class ContactHelper extends HelperBase {
         type(By.name("home"), newContactData.getHome_phone());
 
         if (creation) {   //если форма создания то выпадающий список должен быть, если нет то выполнение упадёт
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(newContactData.getGroup());
-        } else {        // мы пришли на форму модификации контакта
-            Assert.assertFalse(isElementPresent(By.name("new_group"))); //проверка того что на странице модификации контакта не должна находится кнопка группы
+  if(newContactData.getGroups().size()>0) {
+              Assert.assertTrue(newContactData.getGroups().size()==1);
+               new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(newContactData.getGroups().iterator().next().getNameGroup()); //выберем имя группы
+           } else {        // мы пришли на форму модификации контакта
+              Assert.assertFalse(isElementPresent(By.name("new_group"))); //проверка того что на странице модификации контакта не должна находится кнопка группы
 
+  }
         }
 
-        if (isElementPresent(By.name("new_group"))) {                  //если элемент есть тогда используем его, еслиего нет то неисспользуем
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(newContactData.getGroup());
-        }
+    //    if (isElementPresent(By.name("new_group"))) {                  //если элемент есть тогда используем его, еслиего нет то неисспользуем
+    // //       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(newContactData.getGroup());
+    //    }
 
     }
 

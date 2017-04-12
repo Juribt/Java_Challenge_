@@ -8,10 +8,9 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.hibernate.annotations.Type;
 import ru.stqa.yuri.addressbook1.tests.TestBase;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by bilovyur on 25.01.2017.
@@ -28,15 +27,24 @@ public class GroupData1 {
     @Column(name = "group_name")
     private String nameGroup;
     @Expose
-   @Column(name = "group_header")
-   @Type(type="text")
+    @Column(name = "group_header")
+    @Type(type = "text")
     private String headerGroup;
     @Expose
     @Column(name = "group_footer")
-    @Type(type="text")
+    @Type(type = "text")
     private String nameFooter;
 
+    @ManyToMany(mappedBy = "groups")
+    private Set<NewContactData1> contacts = new HashSet<NewContactData1>();
 
+    //public Set<NewContactData1> getContacts() {
+    //    return contacts;
+   //}
+
+    public Contacts getContacts() {
+        return new Contacts(contacts);
+    }
     public int getId() {
 
         return id;

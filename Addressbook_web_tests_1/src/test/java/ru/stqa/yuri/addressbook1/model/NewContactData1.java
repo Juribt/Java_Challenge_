@@ -7,6 +7,8 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by bilovyur on 25.01.2017.
@@ -84,13 +86,17 @@ public class NewContactData1 {
     @XStreamOmitField
     @Transient
     private  String work_phone;
-    @XStreamOmitField
-    @Transient
-    private String group;
+    //@XStreamOmitField
+    //@Transient
+    //private String group;
     @XStreamOmitField
     @Transient
     private File photo;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name ="id"),
+            inverseJoinColumns = @JoinColumn(name="group_id"))
+    private Set<GroupData1> groups = new HashSet<GroupData1>();
 
     public File getPhoto() {
         return photo;
@@ -164,10 +170,10 @@ public class NewContactData1 {
         return this;
     }
 
-    public NewContactData1 withGroup(String group) {
-        this.group = group;
-        return this;
-    }
+   // public NewContactData1 withGroup(String group) {
+    //    this.group = group;
+  //      return this;
+   // }
 
     public int getId() {
         return id;
@@ -213,7 +219,16 @@ public class NewContactData1 {
     public String getHome_phone() {
         return home_phone;
     }
-    public String getGroup() {
-        return group;
+  //  public String getGroup() {
+      //  return group;
+   // }
+
+    public Groups getGroups() {
+        return new Groups(groups);
+    }
+
+    public NewContactData1 inGroup(GroupData1 group) {
+        groups.add(group);
+        return this;
     }
 }

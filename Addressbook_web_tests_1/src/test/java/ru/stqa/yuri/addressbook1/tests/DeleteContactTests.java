@@ -20,7 +20,8 @@ public class DeleteContactTests extends TestBase {
         app.goTo().checkNewContact(); //открыть страницу контактов
         if (app.db().contacts().size()== 0) { //проверка на то что контактов на странице нет
             app.contact().create_contact(new NewContactData1()
-                    .withLast_name("Testovich").withFirst_name("Test").withMiddle_name("Testyi").withNick_name("Testik").withCompany_name("Test_High_Technologies").withMobile_phone("89526656583").withEmail_1("john_swift@yahoo.com").withAddress("England, Solsbery, Flint str, h 7, fl. 8").withHome_phone("6402780").withGroup("Yuri1_test_group")); // если нет то создаём
+                    .withLast_name("Testovich").withFirst_name("Test").withMiddle_name("Testyi").withNick_name("Testik").withCompany_name("Test_High_Technologies").withMobile_phone("89526656583").withEmail_1("john_swift@yahoo.com").withAddress("England, Solsbery, Flint str, h 7, fl. 8").withHome_phone("6402780"));
+        //            .withGroup("Yuri1_test_group")); // если нет то создаём
         }
     }
 

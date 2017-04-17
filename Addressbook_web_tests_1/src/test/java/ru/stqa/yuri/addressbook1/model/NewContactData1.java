@@ -223,7 +223,7 @@ public class NewContactData1 {
       //  return group;
    // }
 
-    public Groups getGroups() {
+    public Groups getGroups() {   //Множество переводим в объект типа groups
         return new Groups(groups);
     }
 
@@ -231,4 +231,9 @@ public class NewContactData1 {
         groups.add(group);
         return this;
     }
+
+ /*   public int getNumberofContactsInGroup(GroupData1 group) {
+       return groups.size();
+       // return this;
+    }*/
 }

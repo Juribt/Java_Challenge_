@@ -31,7 +31,8 @@ public class yuriNewContactTest1 extends TestBase {
                 .withMobile_phone("89526656583")
                 .withEmail_1("john_swift@yahoo.com")
                 .withAddress("England, Solsbery, Flint str, h 7, fl. 8")
-                .withHome_phone("6402780").inGroup(groups.iterator().next());
+                .withHome_phone("6402780")
+                .inGroup(groups.iterator().next());
 //                .withGroup("Yuri1_test_group");
 
 

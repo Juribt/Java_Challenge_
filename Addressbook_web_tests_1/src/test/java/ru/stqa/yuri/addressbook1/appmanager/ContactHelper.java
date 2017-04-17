@@ -37,18 +37,18 @@ public class ContactHelper extends HelperBase {
         type(By.name("home"), newContactData.getHome_phone());
 
         if (creation) {   //если форма создания то выпадающий список должен быть, если нет то выполнение упадёт
-  if(newContactData.getGroups().size()>0) {
-              Assert.assertTrue(newContactData.getGroups().size()==1);
-               new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(newContactData.getGroups().iterator().next().getNameGroup()); //выберем имя группы
-           } else {        // мы пришли на форму модификации контакта
-              Assert.assertFalse(isElementPresent(By.name("new_group"))); //проверка того что на странице модификации контакта не должна находится кнопка группы
+            if (newContactData.getGroups().size() > 0) {
+                Assert.assertTrue(newContactData.getGroups().size() == 1);
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(newContactData.getGroups().iterator().next().getNameGroup()); //выберем имя группы
+            } else {        // мы пришли на форму модификации контакта
+                Assert.assertFalse(isElementPresent(By.name("new_group"))); //проверка того что на странице модификации контакта не должна находится кнопка группы
 
-  }
+            }
         }
 
-    //    if (isElementPresent(By.name("new_group"))) {                  //если элемент есть тогда используем его, еслиего нет то неисспользуем
-    // //       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(newContactData.getGroup());
-    //    }
+        //    if (isElementPresent(By.name("new_group"))) {                  //если элемент есть тогда используем его, еслиего нет то неисспользуем
+        // //       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(newContactData.getGroup());
+        //    }
 
     }
 
@@ -64,7 +64,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("address"), newContactData.getAddress());
         type(By.name("home"), newContactData.getHome_phone());
 
-           }
+    }
 
 
     public void submitNewContact() {
@@ -98,6 +98,26 @@ public class ContactHelper extends HelperBase {
         //       wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
         //       wd.findElement(By.cssSelector("img[alt=\"Edit\"]")).click();
 
+    }
+    public void clickOption(String optionName)  {
+        //my_select.find_elements( :tag_name => "option" )
+//select name="to_group">
+       // Select select = (Select)wd.findElement(By.name("to_group"));
+       // select.selectByValue(optionName);
+
+        wd.findElement(By.name("to_group")).sendKeys(optionName);
+    }
+
+    public void getGroup(Integer group_Id)  {
+       WebElement  group_element = wd.findElement(By.name("group"));//.sendKeys(Integer.toString(group_ID));
+        Select mySelect= new Select(group_element);   //выбор группы по id, click по Values
+        mySelect.selectByValue(Integer.toString(group_Id));
+
+    }
+
+    public void removeFromGroup(){
+        wd.findElement(By.name("remove")).click();
+        //name="remove"
     }
 
     public void updateContact() {
@@ -152,6 +172,11 @@ public class ContactHelper extends HelperBase {
 
     public int getContactCount() {
         return wd.findElements(By.name("selected[]")).size();
+    }
+
+    public void addContactToGroup (){
+        wd.findElement(By.cssSelector("input[value='Add to']")).click();
+        //<input type="submit" value="Add to" name="add">
     }
 
 

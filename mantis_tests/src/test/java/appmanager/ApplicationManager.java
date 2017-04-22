@@ -17,10 +17,11 @@ import java.util.concurrent.TimeUnit;
  */
 public class ApplicationManager {
     private final Properties properties;
-    WebDriver wd;
+ private WebDriver wd; //сделаем так чтобы обращение было только через getDriver()
 
 
     private String browser;
+    private RegistrationHelper registrationHelper;
 
 
     public ApplicationManager(String browser) {
@@ -37,7 +38,7 @@ public class ApplicationManager {
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
 
 
-        if (browser.equals(BrowserType.FIREFOX)) {
+       /* if (browser.equals(BrowserType.FIREFOX)) {
             wd = new FirefoxDriver();
         } else if (browser.equals(BrowserType.CHROME)) {
             wd = new ChromeDriver();
@@ -49,13 +50,16 @@ public class ApplicationManager {
         wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         wd.manage().window().maximize(); //раскрыть окно
         wd.get(properties.getProperty("web.baseUrl"));//"http://localhost:8081/addressbook");
-
+*/
 
     }
 
 
-    public void stop() {
-        wd.quit();
+    public void stop() { //останавливаем, если драйвер проинициализирован
+        if (wd!=null){
+            wd.quit();
+        }
+
     }
 
     public HttpSession newSession() {
@@ -64,5 +68,30 @@ public class ApplicationManager {
 
     public String getProperty(String key) {
         return properties.getProperty(key);
+    }
+
+    public RegistrationHelper registration() {
+        if (registrationHelper == null){
+            registrationHelper = new RegistrationHelper(this);
+        }
+       return registrationHelper;
+    }
+
+    public WebDriver getDriver() {
+        if (wd == null) {
+            if (browser.equals(BrowserType.FIREFOX)) {
+                wd = new FirefoxDriver();
+            } else if (browser.equals(BrowserType.CHROME)) {
+                wd = new ChromeDriver();
+            } else if (browser.equals(BrowserType.IE)) {
+                wd = new InternetExplorerDriver();
+            }
+
+            wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+            wd.manage().window().maximize(); //раскрыть окно
+            wd.get(properties.getProperty("web.baseUrl"));//"http://localhost:8081/addressbook");
+
+        }
+        return wd; //driver
     }
 }

@@ -23,6 +23,7 @@ public class ApplicationManager {
     private String browser;
     private RegistrationHelper registrationHelper;
     private FtpHelper ftp;
+    private MailHelper mailHelper;
 
 
     public ApplicationManager(String browser) {
@@ -37,21 +38,6 @@ public class ApplicationManager {
     public void init() throws IOException {
         String target = System.getProperty("target", "local"); //часть имени конфигурационного файла
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
-
-
-       /* if (browser.equals(BrowserType.FIREFOX)) {
-            wd = new FirefoxDriver();
-        } else if (browser.equals(BrowserType.CHROME)) {
-            wd = new ChromeDriver();
-        } else if (browser.equals(BrowserType.IE)) {
-            wd = new InternetExplorerDriver();
-        }
-
-
-        wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
-        wd.manage().window().maximize(); //раскрыть окно
-        wd.get(properties.getProperty("web.baseUrl"));//"http://localhost:8081/addressbook");
-*/
 
     }
 
@@ -101,5 +87,12 @@ public class ApplicationManager {
 
         }
         return wd; //driver
+    }
+
+    public MailHelper mail(){
+        if (mailHelper == null){
+            mailHelper= new MailHelper(this);
+        }
+        return mailHelper;
     }
 }

@@ -12,7 +12,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,8 +38,7 @@ public class HttpSession {
         post.setEntity(new UrlEncodedFormEntity(params));
         CloseableHttpResponse response = httpclient.execute(post);
         String body = getTextFromResponse(response);
-     //   System.out.println("We get:" + String.format("<span class=\"italic\">%s</span>", username));
-     //   return body.contains(String.format("<span class=\"italic\">%s</span>", username));
+
         return body.contains(String.format("<a href=\"/mantisbt-2.3.1/account_page.php\">%s</a>", username));
     }
 

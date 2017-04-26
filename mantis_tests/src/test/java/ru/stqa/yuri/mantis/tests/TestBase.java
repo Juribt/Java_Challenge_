@@ -23,7 +23,7 @@ public class TestBase {
 
     @BeforeSuite
     public void setUp() throws Exception {
-        //System.setProperty("webdriver.chrome.driver", "C:\\windows\\system32\\chromedriver.exe");
+
         app.init();
         app.ftp().upload(new File("src/test/resources/config_inc.php"),"config_inc.php","config_inc.php.bak");
     }

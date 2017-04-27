@@ -37,4 +37,6 @@ public class HelperBase {
             wd.findElement(locator).sendKeys(file.getAbsolutePath());
         }
     }
+
+
 }

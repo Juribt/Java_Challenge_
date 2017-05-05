@@ -5,6 +5,8 @@ import biz.futureware.mantis.rpc.soap.client.MantisConnectPortType;
 import biz.futureware.mantis.rpc.soap.client.ProjectData;
 import model.Issue;
 import model.Project;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import javax.xml.rpc.ServiceException;
@@ -20,6 +22,13 @@ import static org.testng.AssertJUnit.assertEquals;
  */
 public class SoapTests extends TestBase {
 
+    @BeforeMethod
+    public void startMailServer() throws RemoteException, ServiceException, MalformedURLException {
+        app.mail().start(); //запуск Mail Server перед тестом
+      Integer  issueId = app.soap().getIssueNumber();
+        skipIfNotFixed(issueId);
+    }
+
     @Test
     public void testGetProjects() throws MalformedURLException, ServiceException, RemoteException {
         Set<Project> projects = app.soap().getProjects();
@@ -34,9 +43,36 @@ public class SoapTests extends TestBase {
     @Test
     public void testCreateIssue()throws MalformedURLException, ServiceException, RemoteException{
         Set<Project> projects = app.soap().getProjects();
-Issue issue = new Issue().withSummary("Test issue")
+        Issue issue = new Issue().withSummary("Test issue2")
         .withDescription("Test issue description").withProject(projects.iterator().next());
         Issue created=  app.soap().addIssue(issue);
         assertEquals(issue.getSummary(), created.getSummary()); //сравниваем Summary
+    }
+
+    @Test
+    public void testCheckIfFixedIssue() throws RemoteException, ServiceException, MalformedURLException {
+    //    Set<Project> projects = app.soap().getIssue();
+        app.soap().getIssue(0000001);
+
+
+    }
+
+    @Test
+    public void testGetStatuses() throws RemoteException, ServiceException, MalformedURLException {
+        app.soap().getStatuses();
+
+    }
+
+    @Test
+    public void testCheckResolution() throws RemoteException, ServiceException, MalformedURLException {
+        Integer  issueId = app.soap().getIssueNumber();
+      //  app.soap().getResolution(issueId)
+        assertEquals(app.soap().getResolution(issueId), "fixed"); //проверим на то, что если дефект закрыт, то он fixed
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void startTest() {
+        app.mail().stop(); //остановка Mail Server после теста
+
     }
 }

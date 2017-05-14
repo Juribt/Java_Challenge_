@@ -50,6 +50,8 @@ public class ApplicationManager {
             wd = new InternetExplorerDriver();
         }
 
+        //wd = new ChromeDriver();
+
 
         wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         wd.manage().window().maximize(); //раскрыть окно

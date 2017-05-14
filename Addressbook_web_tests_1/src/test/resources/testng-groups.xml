@@ -3,10 +3,7 @@
 <suite name="Suite1">
     <test name="Groups" >
         <classes>
-            <class name="ru.stqa.yuri.addressbook1.tests.yuriGroupTest1" />
-            <class name="ru.stqa.yuri.addressbook1.tests.GroupModificationTests" />
-            <class name="ru.stqa.yuri.addressbook1.tests.yuriDeleteGroupTest1" />
-
+       <class name="ru.stqa.yuri.addressbook1.tests.GroupModificationTests" />
         </classes>
     </test>
 </suite>

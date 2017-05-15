@@ -13,6 +13,8 @@
     <test name="Contacts">
         <classes>
             <class name="ru.stqa.yuri.addressbook1.tests.yuriNewContactTest1" />
+            <class name="ru.stqa.yuri.addressbook1.tests.ContactModificationTests" />
+            <class name="ru.stqa.yuri.addressbook1.tests.DeleteContactTests" />
                   </classes>
     </test>
 </suite>

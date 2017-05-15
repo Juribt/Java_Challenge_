@@ -1,6 +1,7 @@
 package ru.stqa.yuri.addressbook1.appmanager;
 
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -58,21 +59,10 @@ if("".equals(properties.getProperty("selenium.server"))) {
 }else{
     DesiredCapabilities capabilities = new DesiredCapabilities();
     capabilities.setBrowserName(browser);
+    capabilities.setPlatform(Platform.fromString(System.getProperty("platform", "win7")));
     wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
 
 }
-   /* DesiredCapabilities capabilities = new DesiredCapabilities();
-    browser = "chrome";
-    capabilities.setBrowserName(browser);
-    wd = new RemoteWebDriver(new URL("http://10.2.40.124:4444/wd/hub"), capabilities);
-*/
-
-
-       /* DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setBrowserName(browser);
-        wd = new RemoteWebDriver(new URL("http://10.2.40.124:4444/wd/hub"), capabilities);*/
-        //wd = new ChromeDriver();
-
 
         wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         wd.manage().window().maximize(); //раскрыть окно

@@ -61,6 +61,12 @@ if("".equals(properties.getProperty("selenium.server"))) {
     wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
 
 }
+   /* DesiredCapabilities capabilities = new DesiredCapabilities();
+    browser = "chrome";
+    capabilities.setBrowserName(browser);
+    wd = new RemoteWebDriver(new URL("http://10.2.40.124:4444/wd/hub"), capabilities);
+*/
+
 
        /* DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setBrowserName(browser);

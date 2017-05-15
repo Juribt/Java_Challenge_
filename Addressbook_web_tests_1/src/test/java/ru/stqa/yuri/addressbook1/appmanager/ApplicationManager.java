@@ -45,6 +45,7 @@ public class ApplicationManager {
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
 
         dbHelper = new DbHelper(); //инициализация помощника по работе с базой данных
+
 if("".equals(properties.getProperty("selenium.server"))) {
 
     if (browser.equals(BrowserType.FIREFOX)) {
@@ -60,6 +61,10 @@ if("".equals(properties.getProperty("selenium.server"))) {
     wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
 
 }
+
+       /* DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setBrowserName(browser);
+        wd = new RemoteWebDriver(new URL("http://10.2.40.124:4444/wd/hub"), capabilities);*/
         //wd = new ChromeDriver();
 
 

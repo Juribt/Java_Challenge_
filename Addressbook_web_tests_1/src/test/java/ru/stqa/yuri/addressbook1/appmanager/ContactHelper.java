@@ -6,9 +6,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.yuri.addressbook1.model.Contacts;
+import ru.stqa.yuri.addressbook1.model.Contacts1;
 import ru.stqa.yuri.addressbook1.model.NewContactData1;
+import ru.stqa.yuri.addressbook1.model.NewContactData2;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -46,9 +50,31 @@ public class ContactHelper extends HelperBase {
             }
         }
 
-        //    if (isElementPresent(By.name("new_group"))) {                  //если элемент есть тогда используем его, еслиего нет то неисспользуем
-        // //       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(newContactData.getGroup());
-        //    }
+    }
+
+    public void fillNewContactForm1(NewContactData2 newContactData, boolean creation) { //заполнение формы нового контакта
+        type(By.name("lastname"), newContactData.getLast_name());
+        type(By.name("firstname"), newContactData.getFirst_name());
+        type(By.name("middlename"), newContactData.getMiddle_name());
+        type(By.name("nickname"), newContactData.getNick_name());
+
+        attach(By.name("photo"), newContactData.getPhoto()); //кликнуть по кнопке файл
+
+        type(By.name("company"), newContactData.getCompany_name());
+        type(By.name("mobile"), newContactData.getMobile_phone());
+        type(By.name("email"), newContactData.getEmail_1());
+        type(By.name("address"), newContactData.getAddress());
+        type(By.name("home"), newContactData.getHome_phone());
+
+        if (creation) {   //если форма создания то выпадающий список должен быть, если нет то выполнение упадёт
+            if (newContactData.getGroups().size() > 0) {
+                Assert.assertTrue(newContactData.getGroups().size() == 1);
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(newContactData.getGroups().iterator().next().getNameGroup()); //выберем имя группы
+            } else {        // мы пришли на форму модификации контакта
+                Assert.assertFalse(isElementPresent(By.name("new_group"))); //проверка того что на странице модификации контакта не должна находится кнопка группы
+
+            }
+        }
 
     }
 
@@ -99,23 +125,24 @@ public class ContactHelper extends HelperBase {
         //       wd.findElement(By.cssSelector("img[alt=\"Edit\"]")).click();
 
     }
-    public void clickOption(String optionName)  {
+
+    public void clickOption(String optionName) {
         //my_select.find_elements( :tag_name => "option" )
 //select name="to_group">
-       // Select select = (Select)wd.findElement(By.name("to_group"));
-       // select.selectByValue(optionName);
+        // Select select = (Select)wd.findElement(By.name("to_group"));
+        // select.selectByValue(optionName);
 
         wd.findElement(By.name("to_group")).sendKeys(optionName);
     }
 
-    public void getGroup(Integer group_Id)  {
-       WebElement  group_element = wd.findElement(By.name("group"));//.sendKeys(Integer.toString(group_ID));
-        Select mySelect= new Select(group_element);   //выбор группы по id, click по Values
+    public void getGroup(Integer group_Id) {
+        WebElement group_element = wd.findElement(By.name("group"));//.sendKeys(Integer.toString(group_ID));
+        Select mySelect = new Select(group_element);   //выбор группы по id, click по Values
         mySelect.selectByValue(Integer.toString(group_Id));
 
     }
 
-    public void removeFromGroup(){
+    public void removeFromGroup() {
         wd.findElement(By.name("remove")).click();
         //name="remove"
     }
@@ -148,6 +175,13 @@ public class ContactHelper extends HelperBase {
         checkContact();
     }
 
+    public void create_contact1(NewContactData2 contact) { //создание контакта
+        createNewContact();
+        fillNewContactForm1(contact, true);
+        submitNewContact();
+        checkContact();
+    }
+
     public void create_contact_file(NewContactData1 contact) { //создание контакта
         createNewContact();
         fillNewContactForm_file(contact, true); ////////////////////проблемная секция
@@ -174,7 +208,7 @@ public class ContactHelper extends HelperBase {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    public void addContactToGroup (){
+    public void addContactToGroup() {
         wd.findElement(By.cssSelector("input[value='Add to']")).click();
         //<input type="submit" value="Add to" name="add">
     }
@@ -199,6 +233,27 @@ public class ContactHelper extends HelperBase {
                 .withMobile_phone(mobile).withWork_phone(work);
     }
 
+    public NewContactData2 infoFromEditForm1(NewContactData2 contact) {
+        getContactwithoutCheckBoxById(contact.getId());
+        String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+        String surname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String address = wd.findElement(By.name("address")).getAttribute("value");
+        String home = wd.findElement(By.name("home")).getAttribute("value");
+        String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+        String work = wd.findElement(By.name("work")).getAttribute("value");
+        String home_1 = wd.findElement(By.name("phone2")).getAttribute("value");
+        String email_1 = wd.findElement(By.name("email")).getAttribute("value");
+        String email_2 = wd.findElement(By.name("email2")).getAttribute("value");
+        String email_3 = wd.findElement(By.name("email3")).getAttribute("value");
+
+        checkContact();
+        return new NewContactData2()
+                .withId(contact.getId()).withFirst_name(firstname).withLast_name(surname).withHome_phone(home)
+                .withMobile_phone(mobile).withWork_phone(work).withHome_phone_1(home_1)
+                .withEmail_1(email_1).withEmail_2(email_2).withEmail_3(email_3).withAddress(address);
+    }
+
+
     public Contacts contact_all() {
         Contacts contacts = new Contacts();
 
@@ -217,4 +272,42 @@ public class ContactHelper extends HelperBase {
     }
 
 
+    public Contacts1 contact_inf() {
+        Contacts1 contacts = new Contacts1();
+
+        List<WebElement> elements = wd.findElements(By.xpath(("//tr[@name = 'entry']")));
+
+        for (WebElement element : elements) {
+
+            String name = element.findElement(By.xpath("td[3]")).getText();
+            String surname = element.findElement(By.xpath("td[2]")).getText();
+
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value")); // получаем id контакта
+
+            contacts.add(new NewContactData2().withId(id).withLast_name(surname).withFirst_name(name));
+        }
+        return contacts;
+    }
+
+    public Set<NewContactData2> contact_inf_temp() {
+        Set<NewContactData2> contacts = new HashSet<NewContactData2>();
+        List<WebElement> rows = wd.findElements(By.name("entry"));
+              for (WebElement row : rows) {
+            List<WebElement> cells = row.findElements(By.tagName(("td")));
+            int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
+            String lastname = cells.get(1).getText();
+            String firstname = cells.get(2).getText();
+                      String allAddress = cells.get(3).getText();
+            String allEmails = cells.get(4).getText();
+            String allPhones = cells.get(5).getText();
+
+
+            contacts.add(new NewContactData2().withId(id).withFirst_name(firstname)
+                    .withAllPhones(allPhones).withAllEmails(allEmails).withAddress(allAddress));
+
+        }
+
+
+        return contacts;
+    }
 }

@@ -268,7 +268,18 @@ public class ContactHelper extends HelperBase {
         String email_1 = wd.findElement(By.name("email")).getAttribute("value");
         String email_2 = wd.findElement(By.name("email2")).getAttribute("value");
         String email_3 = wd.findElement(By.name("email3")).getAttribute("value");
-
+        if (home !=""){
+            home = "H:" + home;
+        }
+        if (mobile !=""){
+            mobile = "M:" + mobile;
+        }
+        if (work !=""){
+            work = "W:" + work;
+        }
+        if (home_1 !=""){
+            home_1 = "P:" + home_1;
+        }
        // checkContact();
         return new NewContactData2()
                 .withFirst_name(firstname).withLast_name(surname).withAddress(address).withHome_phone(home)

@@ -62,6 +62,6 @@ public class VerboseContactPhoneTests extends TestBase {
 
     public static String cleaned_all(String phone) {  //чистим ненужные символы
         return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
-  
+
     }
 }

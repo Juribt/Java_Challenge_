@@ -12,6 +12,7 @@ import ru.stqa.yuri.addressbook1.model.NewContactData2;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -268,16 +269,30 @@ public class ContactHelper extends HelperBase {
         String email_1 = wd.findElement(By.name("email")).getAttribute("value");
         String email_2 = wd.findElement(By.name("email2")).getAttribute("value");
         String email_3 = wd.findElement(By.name("email3")).getAttribute("value");
-        if (home !=""){
+        /*if (!home.equals("")){
             home = "H:" + home;
         }
-        if (mobile !=""){
+        if (!mobile.equals("")){
             mobile = "M:" + mobile;
         }
-        if (work !=""){
+        if (!work.equals("")){
             work = "W:" + work;
         }
-        if (home_1 !=""){
+        if (!home_1.equals("")){
+            home_1 = "P:" + home_1;
+        }*/
+
+
+        if (!Objects.equals(home,"")){
+            home = "H:" + home;
+        }
+        if (!Objects.equals(mobile,"")){
+            mobile = "M:" + mobile;
+        }
+        if (!Objects.equals(work,"")){
+            work = "W:" + work;
+        }
+        if (!Objects.equals(home_1,"")){
             home_1 = "P:" + home_1;
         }
        // checkContact();

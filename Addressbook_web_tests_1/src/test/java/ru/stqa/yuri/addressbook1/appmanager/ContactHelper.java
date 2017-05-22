@@ -126,11 +126,13 @@ public class ContactHelper extends HelperBase {
 
     }
 
+    public void getContactwithVerboseInfById(int id) {
+
+        wd.findElement(By.cssSelector(String.format("a[href='view.php?id=%s']", id))).click();
+
+    }
+
     public void clickOption(String optionName) {
-        //my_select.find_elements( :tag_name => "option" )
-//select name="to_group">
-        // Select select = (Select)wd.findElement(By.name("to_group"));
-        // select.selectByValue(optionName);
 
         wd.findElement(By.name("to_group")).sendKeys(optionName);
     }
@@ -253,6 +255,27 @@ public class ContactHelper extends HelperBase {
                 .withEmail_1(email_1).withEmail_2(email_2).withEmail_3(email_3).withAddress(address);
     }
 
+    public NewContactData2 infoFromEditForm2(NewContactData2 contact) throws InterruptedException {
+        checkContact();
+        getContactwithoutCheckBoxById(contact.getId());
+        String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+        String surname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String address = wd.findElement(By.name("address")).getAttribute("value");
+        String home = wd.findElement(By.name("home")).getAttribute("value");
+        String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+        String work = wd.findElement(By.name("work")).getAttribute("value");
+        String home_1 = wd.findElement(By.name("phone2")).getAttribute("value");
+        String email_1 = wd.findElement(By.name("email")).getAttribute("value");
+        String email_2 = wd.findElement(By.name("email2")).getAttribute("value");
+        String email_3 = wd.findElement(By.name("email3")).getAttribute("value");
+
+       // checkContact();
+        return new NewContactData2()
+                .withFirst_name(firstname).withLast_name(surname).withAddress(address).withHome_phone(home)
+                .withMobile_phone(mobile).withWork_phone(work)
+                .withEmail_1(email_1).withEmail_2(email_2).withEmail_3(email_3)
+                        .withHome_phone_1(home_1);
+    }
 
     public Contacts contact_all() {
         Contacts contacts = new Contacts();
@@ -290,24 +313,25 @@ public class ContactHelper extends HelperBase {
     }
 
     public Set<NewContactData2> contact_inf_temp() {
-        Set<NewContactData2> contacts = new HashSet<NewContactData2>();
-        List<WebElement> rows = wd.findElements(By.name("entry"));
-              for (WebElement row : rows) {
-            List<WebElement> cells = row.findElements(By.tagName(("td")));
-            int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
-            String lastname = cells.get(1).getText();
-            String firstname = cells.get(2).getText();
-                      String allAddress = cells.get(3).getText();
-            String allEmails = cells.get(4).getText();
-            String allPhones = cells.get(5).getText();
+            Set<NewContactData2> contacts = new HashSet<NewContactData2>();
+            List<WebElement> rows = wd.findElements(By.name("entry"));
+            for (WebElement row : rows) {
+                List<WebElement> cells = row.findElements(By.tagName(("td")));
+                int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
+
+                contacts.add(new NewContactData2().withId(id));
+
+            }
+
+            return contacts;
+    }
+
+    public NewContactData2 contact_inf_verbose(NewContactData2 contact) {
+        getContactwithVerboseInfById(contact.getId()); //кликаем по человечку
 
 
-            contacts.add(new NewContactData2().withId(id).withFirst_name(firstname)
-                    .withAllPhones(allPhones).withAllEmails(allEmails).withAddress(allAddress));
+            String allInf = wd.findElement(By.id("content")).getText(); //получаем строку с информацией по контакту
 
-        }
-
-
-        return contacts;
+        return new NewContactData2().withAllInf(allInf);
     }
 }

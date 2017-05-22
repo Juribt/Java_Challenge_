@@ -42,6 +42,16 @@ public class NewContactData2 {
     private  String allPhones;
     private  String allEmails;
 
+    public String getAllInf() {
+        return allInf;
+    }
+
+    public void setAllInf(String allInf) {
+        this.allInf = allInf;
+    }
+
+    private  String allInf;
+
     public String getAllEmails() {
         return allEmails;
     }
@@ -189,6 +199,10 @@ public class NewContactData2 {
         return this;
     }
 
+    public NewContactData2 withAllInf(String allInf) {
+        this.allInf = allInf;
+        return this;
+    }
 
 
     public int getId() {
